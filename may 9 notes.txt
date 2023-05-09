@@ -1,0 +1,8 @@
+I need to get busy.
+
+I need to be constantly updating my README.md so that it accurately reflects what I've been doing with my assignment.
+
+we are starting class.
+
+about.blank lets you make an empty document in the chrome browser. command f12 brings up the debugging and developer tools.
+
