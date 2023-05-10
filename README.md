@@ -24,3 +24,11 @@ With the game Mafia as my inspiration, I will create a simple platform to automa
 
 ## Technology
 
+- HTML: I will create two HTML sites, one for the login and one for the gameplay
+- Links: the login page contains a link to the game page
+- Text: all players that can be selected are represented with text windows
+- Images: there will be a slightly opaque image displayed over the gameplay section when you die
+- Login: Input box and submit button for login
+- Database: recording the history of wins and loses for a player, and a temporary record of ingame events
+- Websocket: The players list represents a live number of spectators and players, including spectators joining live. a live chat may be implimented.
+
