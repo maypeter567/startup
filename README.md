@@ -7,5 +7,7 @@ With the game Mafia as my inspiration, I will create a simple platform to automa
 
 ## photo's of startup.
 
+
+
 ## key features.
 
