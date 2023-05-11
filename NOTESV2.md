@@ -55,3 +55,7 @@ iframe	Inline frame of another HTML page
 # May 10
 
 I was messing around with simon, I learned about how scripts can be used in computers to accomplish tasks without having to run it through an editor, straight from the command line. super cool.
+
+after working through a significant portion of the html for my startup, I realized how intuitive the designing of the base foundation of the website.
+this makes me worried about what might happen if I tried to actually make it look pretty and have the sleek nature I'd hope to find in an actual game.
+
