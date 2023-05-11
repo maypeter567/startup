@@ -52,3 +52,6 @@ video	Video content
 svg	Scalable vector graphic content
 iframe	Inline frame of another HTML page
 
+# May 10
+
+I was messing around with simon, I learned about how scripts can be used in computers to accomplish tasks without having to run it through an editor, straight from the command line. super cool.
