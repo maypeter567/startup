@@ -59,3 +59,39 @@ I was messing around with simon, I learned about how scripts can be used in comp
 after working through a significant portion of the html for my startup, I realized how intuitive the designing of the base foundation of the website.
 this makes me worried about what might happen if I tried to actually make it look pretty and have the sleek nature I'd hope to find in an actual game.
 
+# May 11
+
+we are learning CSS, I'm amazed at how "simple" the language is. Yet it's complexity is insane.
+
+use <meta name="viewport" /> so that a website doesn't try to adapt a page for you.
+
+@media (orientation: portrait) {
+    div {
+        transform: rotate(270deg);
+    }
+}
+
+float is used to force some objects on the side you dictate instead of automatically loading it on the left.
+
+this next method is used to help automatically resize and move objects in websites so they render automatically.
+## This is grid
+
+.container {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 300px;
+    grid-gap: 1em;
+}
+
+flex
+
+## This is flex
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    height: 100vh;
+}
+
