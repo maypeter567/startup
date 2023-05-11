@@ -7,8 +7,90 @@
     <!-- I wanted to name the title for practice. -->
 
     <body>
+        <header>
+            <button type="checkbox">Click to reveal your role</button>
+            <table>
+                <td>Total wins: 0, Total loses: 0</td>
+                <tr></tr>
+                <td>Email</td>
+                <!-- this will display the next 10 players -->
+            </table>
+            <hr>
+            <table>
+                <th>Players</th>
+                <tr></tr>
+                <td>player1</td>
+                <tr></tr>
+                <td>player2</td>
+                <tr></tr>
+                <td>player3</td>
+                <tr></tr>
+                <td>player4</td>
+                <tr></tr>
+                <td>player5</td>
+                <tr></tr>
+                <td>player6</td>
+                <tr></tr>
+                <td>player7</td>
+                <tr></tr>
+                <td>player8</td>
+                <tr></tr>
+                <td>player9</td>
+                <tr></tr>
+                <td>player10</td>
+            </table>
+            <textarea>history entry 1
+                history entry 2
+                history entry 3
+                history entry 4
+            </textarea>
+        </header>
+
         <main>
-            <a href="index.html">Log In Screen</a>
+            <hr>
+            <nav>
+                <a href="gamepad.html">Gamepade</a>
+                <a href="history.html">History</a>
+                <a href="players.html">Players</a>
+            </nav>
+            <form method="get" action="gamepad.html">
+                <p><label for="select">Who to vote out:</label>
+                <select id="vote" name="varVote">
+                    <option>player1</option>
+                    <option>player2</option>
+                    <option selected>player3</option>
+                    <option>player4</option>
+                    <option>player5</option>
+                    <option>player6</option>
+                    <option>player7</option>
+                    <option>player8</option>
+                    <option>player9</option>
+                    <option>player10</option>
+                </select></p>
+                
+                <p><label for="select">Who to kill (mafia only):</label>
+                <select id="mafia" name="varMafia">
+                    <option>player1</option>
+                    <option>player2</option>
+                    <option selected>player3</option>
+                    <option>player4</option>
+                    <option>player5</option>
+                    <option>player6</option>
+                    <option>player7</option>
+                    <option>player8</option>
+                    <option>player9</option>
+                    <option>player10</option>
+                </select></p>
+                <button type="submit">Save Choices</button>
+                <button type="submit">Reset</button>
+            </form>
         </main>
+
+        <footer>
+            <hr>
+            <span class="text-reset">Peter May</span>
+      <br />
+      <a href="https://github.com/maypeter567/startup/tree/main">GitHub</a>
+        </footer>
     </body>
 </html>
