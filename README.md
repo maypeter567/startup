@@ -32,3 +32,13 @@ With the game Mafia as my inspiration, I will create a simple platform to automa
 - Database: recording the history of wins and loses for a player, and a temporary record of ingame events
 - Websocket: The players list represents a live number of spectators and players, including spectators joining live. a live chat may be implimented.
 
+## HTML Deliverable
+I designed the framework for my application
+- HTML pages: I created four sites. A login page, gameplay page, history page, and players page.
+- Links: I implimented links to navigate to all of the sections of the website.
+- Text: The history tab is represented with text
+- Images: there is a single image in the gameplay page, which will be used to show if a player is dead. This image will be modified through other code on the application.
+- Login: The login page handles the inputs with boxes and submission.
+- Database: the history of the individual player's wins and losses is recorded in the database, history of the ongoing match is recorded temporarily. This is displayed on every page of the application except at login.
+- Websocket: the players page will update with every new viewer, or when someone leaves the game.
+- Select boxes: these are used to show the choices for players in the game on the gameplay page such as votes or mafia decisions.
