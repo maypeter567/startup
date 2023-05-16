@@ -1,8 +1,21 @@
-footer {
-    font-size: 2vh;
-    flex: 0 40px;
+header {
+    font-size: 1vh;
+    flex: 0 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.top-right-corner {
+    font-size: 3vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: center;
+}
+
+.player-table {
+    
 }
