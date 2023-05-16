@@ -1,0 +1,14 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    height: 100vh;
+}
+
+main {
+    font-size: 3vh;
+    flex: 1 40px;
+    display: flex;
+    flex-direction: row;
+
+}
