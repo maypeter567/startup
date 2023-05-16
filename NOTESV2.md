@@ -95,3 +95,6 @@ body {
     height: 100vh;
 }
 
+# May 15
+
+I was experimenting with the simon css elements before pushing the css code onto simon on my browser. I realized that bootstrap mainly looks like html, but the classes that you decide to associate with every element and peice of the objects and format you create is how you directly influence the appearance of the document. It makes much more sense to me now.
