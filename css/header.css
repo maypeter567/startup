@@ -3,19 +3,34 @@ header {
     flex: 0 20px;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    width:100%;
+    background-color: brown;
+    margin: 0;
 }
 
-.top-right-corner {
+header .btn {
     font-size: 3vh;
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: right;
+    align-items: center;
     justify-content: center;
+    background-color: blue;
+}
+
+header td {
+    font-size: 2vh;
+    flex: .5;
+    display: flex;
+    flex-direction: column;
 }
 
 .player-table {
-    
+    font-size: 1.5vh;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    background-color: aquamarine;
 }
+

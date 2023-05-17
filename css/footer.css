@@ -1,8 +1,29 @@
 footer {
-    font-size: 2vh;
-    flex: 0 40px;
+    font-size: 1vh;
+    flex: 0;
     display: flex;
     flex-direction: column;
+    width:100%;
+    background-color: brown;
+    margin: 0;
+}
+
+.footer-link {
+    font-size: 2vh;
+    flex: 0;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.history-list {
+    font-size: 15px;
+    flex: 0 150px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    flex-direction: column;
+    background-color: #5f9f9f;
+    padding: 0 0 0 0;
 }

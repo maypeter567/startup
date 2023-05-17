@@ -1,0 +1,33 @@
+main {
+    font-size: 3vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: green; */
+    position: relative;
+}
+
+.everything {
+    background-color: yellowgreen;
+    border-radius: 10px;
+    padding: 5px;
+    position: relative;
+}
+
+.the-image {
+    position: absolute;
+    opacity: .2;
+    flex: 1;
+}
+
+.links {
+    /* background-color: gray; */
+    position: relative;
+}
+
+.grabber {
+    /* background-color: blueviolet; */
+    position: relative;
+}
