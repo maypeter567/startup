@@ -1,16 +1,16 @@
 footer {
     font-size: 1vh;
-    flex: 0;
+    flex: 0 20px;
     display: flex;
     flex-direction: column;
     width:100%;
-    background-color: brown;
+    /* background-color: brown; */
     margin: 0;
 }
 
 .footer-link {
     font-size: 2vh;
-    flex: 0;
+    flex: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -19,11 +19,11 @@ footer {
 
 .history-list {
     font-size: 15px;
-    flex: 0 150px;
+    flex: 1;
     display: flex;
     justify-content: center;
     align-self: center;
     flex-direction: column;
-    background-color: #5f9f9f;
+    /* background-color: #5f9f9f; */
     padding: 0 0 0 0;
 }

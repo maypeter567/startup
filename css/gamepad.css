@@ -1,3 +1,16 @@
+body {
+    flex: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: rgb(179, 193, 205);
+}
+
+.the-image {
+    position: absolute;
+    opacity: .0;
+}
+
 main {
     font-size: 3vh;
     flex: 1;
@@ -10,24 +23,26 @@ main {
 }
 
 .everything {
-    background-color: yellowgreen;
+    /* background-color: yellowgreen; */
     border-radius: 10px;
     padding: 5px;
     position: relative;
-}
-
-.the-image {
-    position: absolute;
-    opacity: .2;
-    flex: 1;
+    background-image: url(https://media.istockphoto.com/id/1276735653/vector/cross-sign-red-hand-drawn-brush-paint-x-letter-handwritten-criss-cross-symbol-painted.jpg?s=612x612&w=0&k=20&c=ldv6LXaUuUoTvfM4539exm4zKFEfthZJNBc-gKHCGgg=);
+    background-size: 330px 200px;
+    background-repeat: no-repeat;
+    background-position:center;
 }
 
 .links {
-    /* background-color: gray; */
+    background-color: rgba(128, 128, 128, 0.349);
     position: relative;
+    border-radius: 10px;
+    padding: 10px 0px 10px 10px;
 }
 
 .grabber {
-    /* background-color: blueviolet; */
+    background-color: rgba(179, 179, 179, 0.424);
     position: relative;
+    border-radius: 10px;
+    padding: 10px;
 }
