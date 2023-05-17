@@ -1,0 +1,33 @@
+body {
+    flex: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: rgb(179, 193, 205);
+}
+
+main {
+    font-size: 3vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: green; */
+    position: relative;
+}
+
+.links {
+    background-color: rgba(128, 128, 128, 0.349);
+    position: relative;
+    border-radius: 10px;
+    padding: 10px 0px 10px 10px;
+}
+
+.players {
+    background-color: rgba(179, 179, 179, 0.424);
+    position: relative;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 2vh;
+}

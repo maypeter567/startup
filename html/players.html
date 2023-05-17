@@ -15,54 +15,51 @@
 <!-- I wanted to name the title for practice. -->
 
 <body>
-    <header>
-        <button type="checkbox">Click to reveal your role</button>
-        <table>
-            <td>Total wins: 0, Total loses: 0</td>
-            <tr></tr>
-            <td>Email</td>
-            <!-- this will display the next 10 players -->
-        </table>
-        <hr>
-        <table>
-            <th>Players</th>
-            <tr></tr>
-            <td>player1</td>
-            <tr></tr>
-            <td>player2</td>
-            <tr></tr>
-            <td>player3</td>
-            <tr></tr>
-            <td>player4</td>
-            <tr></tr>
-            <td>player5</td>
-            <tr></tr>
-            <td>player6</td>
-            <tr></tr>
-            <td>player7</td>
-            <tr></tr>
-            <td>player8</td>
-            <tr></tr>
-            <td>player9</td>
-            <tr></tr>
-            <td>player10</td>
-        </table>
-        <textarea>
-history entry 1
-history entry 2
-history entry 3
-history entry 4
-            </textarea>
+    <header class="header">
+        <div class="box">
+            <table class="player-table">
+                <th class="player-table">Players</th>
+                <tr></tr>
+                <td class="player-table">player1</td>
+                <tr></tr>
+                <td class="player-table">player2</td>
+                <tr></tr>
+                <td class="player-table">player3</td>
+                <tr></tr>
+                <td class="player-table">player4</td>
+                <tr></tr>
+                <td class="player-table">player5</td>
+                <tr></tr>
+                <td class="player-table">player6</td>
+                <tr></tr>
+                <td class="player-table">player7</td>
+                <tr></tr>
+                <td class="player-table">player8</td>
+                <tr></tr>
+                <td class="player-table">player9</td>
+                <tr></tr>
+                <td class="player-table">player10</td>
+            </table>
+        </div>
+        <div class="btn">
+            <button type="checkbox">Click to reveal your role</button>
+            <table class="header-table">
+                <td>Total wins: 0, Total loses: 0</td>
+                <tr></tr>
+                <td>Email: example@address.com</td>
+                <!-- this will display the next 10 players -->
+            </table>
+        </div>
     </header>
 
     <main>
-        <hr>
-        <nav>
+        <div class="everything">
+        <nav class="links">
             <a href="gamepad.html">Gamepade</a>
             <a href="history.html">History</a>
             <a href="players.html">Players</a>
         </nav>
-        <text>
+        <div class="players">
             <table>
                 <th>Players</th>
                 <tr></tr>
@@ -88,14 +85,23 @@ history entry 4
                 <tr></tr>
                 <td>this list would continue with a scroll bar to include any number of players</td>
             </table>
-        </text>
+        <div>
     </main>
 
     <footer>
-        <hr>
+        <div class="history-list">
+            <ul>
+                <li>history entry 1</li>
+                <li>history entry 2</li>
+                <li>history entry 3</li>
+                <li>history entry 4</li>
+            </ul>
+        </div>
+        <div class="footer-link">
         <span class="text-reset">Peter May</span>
         <br />
         <a href="https://github.com/maypeter567/startup/tree/main">GitHub</a>
+        </div>
     </footer>
 </body>
 
