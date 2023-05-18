@@ -98,3 +98,10 @@ body {
 # May 15
 
 I was experimenting with the simon css elements before pushing the css code onto simon on my browser. I realized that bootstrap mainly looks like html, but the classes that you decide to associate with every element and peice of the objects and format you create is how you directly influence the appearance of the document. It makes much more sense to me now.
+
+# May 15-17
+
+I managed to teach myself better techniques for the flex style method.
+Big notes: pay attention to what overrides the formatting in the documents, if a link to another css file is being imported at the top of the document, it will be used as the default instead of any edit attmepts made inside the rest of the files.
+if you aren't sure what can be used as an argument for a line of code, delete the ":" and replace it to see recommended inputs.
+if all else fails, look it up or review old code you wrote.
