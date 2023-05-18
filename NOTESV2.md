@@ -105,3 +105,16 @@ I managed to teach myself better techniques for the flex style method.
 Big notes: pay attention to what overrides the formatting in the documents, if a link to another css file is being imported at the top of the document, it will be used as the default instead of any edit attmepts made inside the rest of the files.
 if you aren't sure what can be used as an argument for a line of code, delete the ":" and replace it to see recommended inputs.
 if all else fails, look it up or review old code you wrote.
+
+## May 18
+
+in JS, "extends" in class Beach extends location tells the Beach class to inherit location.
+
+classes don't need to have 'function' written in front of a function declaration because it already assumes you are making a function in the class.
+
+you can use the #document command in any websites debugger to see its HTML, then we can make sqripts and code that can do anything we want with the page.
+
+there are many ways to register events and changes to code for the javascript to run off.
+
+'this' on a global function is undefined. otherwise it would be the window.
+
