@@ -23,14 +23,17 @@ header td {
     flex: .5;
     display: flex;
     flex-direction: column;
+    color: rgba(255, 0, 0, 0.733);
 }
 
 .player-table {
-    font-size: 1.5vh;
+    font-size: 2vh;
     flex: 1;
-    display: flex;
+    display: flexbox;
+    flex-direction: row;
     justify-content: center;
     align-self: center;
+    width:fit-content;
     /* background-color: aquamarine; */
 }
 

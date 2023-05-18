@@ -42,3 +42,8 @@ I designed the framework for my application
 - Database: the history of the individual player's wins and losses is recorded in the database, history of the ongoing match is recorded temporarily. This is displayed on every page of the application except at login.
 - Websocket: the players page will update with every new viewer, or when someone leaves the game.
 - Select boxes: these are used to show the choices for players in the game on the gameplay page such as votes or mafia decisions.
+
+
+## CSS Deliverable
+I organized the css for my application
+- 
