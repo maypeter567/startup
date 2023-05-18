@@ -1,6 +1,6 @@
 footer {
     font-size: 1vh;
-    flex: 0 20px;
+    flex: .5;
     display: flex;
     flex-direction: column;
     width:100%;
@@ -18,7 +18,7 @@ footer {
 }
 
 .history-list {
-    font-size: 15px;
+    font-size: 2.5vh;
     flex: 1;
     display: flex;
     justify-content: center;
