@@ -46,4 +46,9 @@ I designed the framework for my application
 
 ## CSS Deliverable
 I organized the css for my application
-- 
+- Files: index, players, history, gamepad, header, and footer css files.
+- Formatting: I removed underlines and other organization tools in the html, instead using css to optimize.
+- Style Choices: I used a universal footer and header method for all pages.
+- Picture: I implimented my picture behind the gamepad to represent when a user dies. currently is always displayed. had to change method of implication in html.
+- Colour: I went for a darker theme for the murder mystery vibes.
+- Sizing: the browser can be any size and the fonts and spacing will adapt for it.
