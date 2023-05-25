@@ -118,3 +118,84 @@ there are many ways to register events and changes to code for the javascript to
 
 'this' on a global function is undefined. otherwise it would be the window.
 
+## may 23
+
+### start example code
+
+new Promise(() => {})
+
+promises have two important things, their state tells you if they are pending or something.
+promises also have a result. the result can determine if it fails or does its job. The result is the value returned.
+
+pending means it is currently running asynchronously
+fulfilled - completed succesfully
+rejected - failed to complete.
+
+function callback(resolve, reject) {
+    resulve('done')
+}
+
+const p = new Promise(callback);
+
+p.then((result) => console.log(result));
+
+the callback function immediately returns, so the promise will usually be a resolved when it comes back. it will either be pending or resolved when it returns.
+
+the const p object creation runs the promise, the p.then() is what will be evaluated when the promise finishes. until then the code runs the rest of the code on the stack.
+
+### start of example code
+
+let p = new Promise((resolve, reject) => {
+ if (Math.random() < 0.5) {
+   resolve('Success!');
+ } else {
+   reject('Failure!');
+ }
+});
+
+function s(success) {
+    console.log(success);
+}
+
+function f(fail) {
+    console.error(fail);
+}
+
+p.then(f, s <!-- this is an example of two ways to do this p.then function, one invlolves defined functions, one is using pointer functions. -->
+ <!-- (success) => console.log(success),
+ (failure) => console.error(failure) -->
+);
+
+### example code
+
+this function will randomly generate a number, and then decide from that number if it fails or succeeds.
+
+const coinToss = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (Math.random() > 0.1) {
+      resolve(Math.random() > 0.5 ? 'heads' : 'tails');
+    } else {
+      reject('fell off table');
+    }
+  }, 3000);
+});
+
+<!-- This code above shows how the stack handles these interactions -->
+
+coinToss
+  .then((result) => console.log(`Toss result: ${result}`))
+  .catch((err) => console.error(`Error: ${err}`))
+  .finally(() => console.log('Toss completed'));
+
+<!-- this code shows the results. -->
+
+### notes
+
+async and await is another syntax for promises.
+
+async makes a promise if you don't provide one, and the return or log or interaction with it needs to have await in it so the code knows to look for the result of await.
+
+you can only use await in async or a top level module function.
+
+when using a function that uses await, it needs to be declared as a async
+
