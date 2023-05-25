@@ -203,3 +203,4 @@ when using a function that uses await, it needs to be declared as a async
 
 I have just learned that I can have multiple then statements inside of a promise. I was very surprised to learn this.
 
+and if you have something that is dependant on a conditional result in an await try block, it cannot be in the finally section or it will always be completed.
