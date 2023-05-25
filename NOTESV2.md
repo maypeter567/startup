@@ -199,3 +199,7 @@ you can only use await in async or a top level module function.
 
 when using a function that uses await, it needs to be declared as a async
 
+## May 24
+
+I have just learned that I can have multiple then statements inside of a promise. I was very surprised to learn this.
+
