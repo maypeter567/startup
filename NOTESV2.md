@@ -225,3 +225,22 @@ use symbols and icons in a way that people expect them to be used.
 
 I'm falling asleep, but typing helps me stay awake.
 
+## May 26
+
+notes for the midterm that I wanted to record quickly.
+
+Internet Engineering Task Force (IETF) is responsible for physical communication of the internet.
+Internet Corporation for Assigned Names and Numbers (ICANN) oversees both the Internet Protocol (IP) address space, and the Domain Name System (DNS)
+
+Tim Berners-Lee made the first website and created the first connections. started 1980 till 1990
+
+Håkon Wium Lie made css in 1996
+
+Brendan Eich made java script in 1995
+
+In 2009 Ryan Dahl created Node.js as the first successful application for deploying JavaScript outside of a browser.
+
+application, https. transport, TCP. internet, IP. link, fiber/hardware.
+
+https port is 443
+

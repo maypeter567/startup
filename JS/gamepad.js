@@ -66,8 +66,10 @@ class Player {
         }
     }
 
+    // NOTES FOR WHAT TO DO TOMORROW. make a for loop for making the selectors remember, and begin working on the logic for the other pages. impliment a history mechanic.
+
     update_history() {
-        
+
     }
 
 }
