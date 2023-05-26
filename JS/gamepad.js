@@ -4,14 +4,21 @@ class Player {
     alive;
     player_role;
     hider;
+    first;
+    email;
+    password;
 
-    constructor(conRole="civilian") {
+    constructor(conRole = "civilian") {
         this.role_revealed = false;
         this.alive = true;
         this.player_role = conRole;
         this.hider = "Click to reveal your role"
-        if(localStorage.getItem("role") == null) {
+        this.first = true;
+        this.email = localStorage.getItem("user_login");
+        this.password = localStorage.getItem("user_password");
+        if (localStorage.getItem("role") == null) {
             localStorage.setItem("role", this.player_role);
+            this.first = false;
         } else {
             this.player_role = localStorage.role;
         }
@@ -19,7 +26,7 @@ class Player {
 
 
     reveal_role() {
-        if(this.role_revealed === false) {
+        if (this.role_revealed === false) {
             this.role_revealed = true;
             const obj = document.querySelector("#role_revealer");
             obj.textContent = this.role;
@@ -30,6 +37,15 @@ class Player {
         }
     }
 
+    update_info() {
+        const first = document.querySelector("#player_email");
+        first.textContent = this.email;
+    }
+
 }
 
 const the_player = new Player();
+
+if (the_player.first) {
+    the_player.update_info();
+}
