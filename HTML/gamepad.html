@@ -37,11 +37,11 @@
             </table>
         </div>
         <div class="btn">
-            <button type="checkbox">Click to reveal your role</button>
+            <button type="checkbox" id="role_revealer">Click to reveal your role</button>
             <table class="header-table">
-                <td>Total wins: 0, Total loses: 0</td>
+                <td id="player_history">Total wins: 0, Total loses: 0</td>
                 <tr></tr>
-                <td>Email: example@address.com</td>
+                <td id="player_email">example@email.here</td>
                 <!-- this will display the next 10 players -->
             </table>
         </div>
@@ -49,50 +49,50 @@
 
     <main>
         <div class="everything">
-        <nav class="links">
-            <a href="gamepad.html">Gamepade</a>
-            <a href="history.html">History</a>
-            <a href="players.html">Players</a>
-        </nav>
-        <div class="grabber">
-        <form method="get" action="gamepad.html">
-            <p><label for="select">Who to vote out:</label>
-                <select id="vote" name="varVote">
-                    <option>player1</option>
-                    <option>player2</option>
-                    <option selected>player3</option>
-                    <option>player4</option>
-                    <option>player5</option>
-                    <option>player6</option>
-                    <option>player7</option>
-                    <option>player8</option>
-                    <option>player9</option>
-                    <option>player10</option>
-                </select>
-            </p>
+            <nav class="links">
+                <a href="gamepad.html">Gamepade</a>
+                <a href="history.html">History</a>
+                <a href="players.html">Players</a>
+            </nav>
+            <div class="grabber">
+                <form method="get" action="gamepad.html">
+                    <p><label for="select">Who to vote out:</label>
+                        <select id="vote" name="varVote">
+                            <option>player1</option>
+                            <option>player2</option>
+                            <option selected>player3</option>
+                            <option>player4</option>
+                            <option>player5</option>
+                            <option>player6</option>
+                            <option>player7</option>
+                            <option>player8</option>
+                            <option>player9</option>
+                            <option>player10</option>
+                        </select>
+                    </p>
 
-            <p><label for="select">Who to kill (mafia only):</label>
-                <select id="mafia" name="varMafia">
-                    <option>player1</option>
-                    <option>player2</option>
-                    <option selected>player3</option>
-                    <option>player4</option>
-                    <option>player5</option>
-                    <option>player6</option>
-                    <option>player7</option>
-                    <option>player8</option>
-                    <option>player9</option>
-                    <option>player10</option>
-                </select>
-            </p>
-            <button type="submit">Save Choices</button>
-            <button type="submit">Reset</button>
-        </form>
-        </div>
-        <img alt="red X" class="the-image"
-            src="https://media.istockphoto.com/id/1276735653/vector/cross-sign-red-hand-drawn-brush-paint-x-letter-handwritten-criss-cross-symbol-painted.jpg?s=612x612&w=0&k=20&c=ldv6LXaUuUoTvfM4539exm4zKFEfthZJNBc-gKHCGgg="
-            width="200" />
+                    <p><label for="select">Who to kill (mafia only):</label>
+                        <select id="mafia" name="varMafia">
+                            <option>player1</option>
+                            <option>player2</option>
+                            <option selected>player3</option>
+                            <option>player4</option>
+                            <option>player5</option>
+                            <option>player6</option>
+                            <option>player7</option>
+                            <option>player8</option>
+                            <option>player9</option>
+                            <option>player10</option>
+                        </select>
+                    </p>
+                    <button type="submit">Save Choices</button>
+                    <button type="submit">Reset</button>
+                </form>
             </div>
+            <img alt="red X" class="the-image"
+                src="https://media.istockphoto.com/id/1276735653/vector/cross-sign-red-hand-drawn-brush-paint-x-letter-handwritten-criss-cross-symbol-painted.jpg?s=612x612&w=0&k=20&c=ldv6LXaUuUoTvfM4539exm4zKFEfthZJNBc-gKHCGgg="
+                width="200" />
+        </div>
     </main>
 
     <footer>
@@ -105,9 +105,9 @@
             </ul>
         </div>
         <div class="footer-link">
-        <span class="text-reset">Peter May</span>
-        <br />
-        <a href="https://github.com/maypeter567/startup/tree/main">GitHub</a>
+            <span class="text-reset">Peter May</span>
+            <br />
+            <a href="https://github.com/maypeter567/startup/tree/main">GitHub</a>
         </div>
     </footer>
 </body>
