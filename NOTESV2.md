@@ -204,3 +204,24 @@ when using a function that uses await, it needs to be declared as a async
 I have just learned that I can have multiple then statements inside of a promise. I was very surprised to learn this.
 
 and if you have something that is dependant on a conditional result in an await try block, it cannot be in the finally section or it will always be completed.
+
+## May 25
+
+we need to make sure we don't make the user think, it needs to be simple.
+
+when building websites, there are consistent elements across all websites that are good to follow for consistency.
+
+the site should have pleasant colours and easy to understand material. what's important should take up the majority of the room.
+
+as you are building a website, you should map it out to see what users need to do and jump through in order to get what they want.
+
+fonts need to be consistent to avoid clashing fonts and for the convenience of the user.
+
+text should have consistent font sizes.
+
+what space has power
+
+use symbols and icons in a way that people expect them to be used.
+
+I'm falling asleep, but typing helps me stay awake.
+
