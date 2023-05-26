@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/CSS/gamepad.css">
     <link rel="stylesheet" href="/CSS/header.css">
     <link rel="stylesheet" href="/CSS/footer.css">
+    <script src="/JS/gamepad.js"></script>
 </head>
 
 <!-- I wanted to name the title for practice. -->
@@ -37,7 +38,7 @@
             </table>
         </div>
         <div class="btn">
-            <button type="checkbox" id="role_revealer">Click to reveal your role</button>
+            <button type="checkbox" id="role_revealer" onclick="the_player.reveal_role()">Click to reveal your role</button>
             <table class="header-table">
                 <td id="player_history">Total wins: 0, Total loses: 0</td>
                 <tr></tr>
@@ -55,8 +56,7 @@
                 <a href="players.html">Players</a>
             </nav>
             <div class="grabber">
-                <form method="get" action="gamepad.html">
-                    <p><label for="select">Who to vote out:</label>
+                    <p><label name="select">Who to vote out:</label>
                         <select id="vote" name="varVote">
                             <option>player1</option>
                             <option>player2</option>
@@ -71,7 +71,7 @@
                         </select>
                     </p>
 
-                    <p><label for="select">Who to kill (mafia only):</label>
+                    <p><label name="select">Who to kill (mafia only):</label>
                         <select id="mafia" name="varMafia">
                             <option>player1</option>
                             <option>player2</option>
@@ -87,7 +87,6 @@
                     </p>
                     <button type="submit">Save Choices</button>
                     <button type="submit">Reset</button>
-                </form>
             </div>
             <img alt="red X" class="the-image"
                 src="https://media.istockphoto.com/id/1276735653/vector/cross-sign-red-hand-drawn-brush-paint-x-letter-handwritten-criss-cross-symbol-painted.jpg?s=612x612&w=0&k=20&c=ldv6LXaUuUoTvfM4539exm4zKFEfthZJNBc-gKHCGgg="
