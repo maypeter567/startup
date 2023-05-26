@@ -29,7 +29,7 @@ class Player {
         if (this.role_revealed === false) {
             this.role_revealed = true;
             const obj = document.querySelector("#role_revealer");
-            obj.textContent = this.role;
+            obj.textContent = this.player_role;
         } else {
             this.role_revealed = false;
             const obj = document.querySelector("#role_revealer");
@@ -48,4 +48,5 @@ const the_player = new Player();
 
 if (the_player.first) {
     the_player.update_info();
+    the_player.first = false;
 }
