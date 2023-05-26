@@ -42,6 +42,15 @@ class Player {
         first.textContent = this.email;
     }
 
+    take_turn() {
+        const civ = document.getElementById("vote");
+        const maf = document.getElementById("mafia");
+        civ.remove(civ.selectedIndex);
+        maf.remove(civ.selectedIndex);
+        maf.remove(maf.selectedIndex);
+        civ.remove(maf.selectedIndex)
+    }
+
 }
 
 const the_player = new Player();
