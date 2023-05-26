@@ -55,11 +55,13 @@ class Player {
         const civ = document.getElementById("vote");
         const maf = document.getElementById("mafia");
         if (this.day) {
+            this.remember_choices(civ);
             civ.remove(civ.selectedIndex);
             maf.remove(civ.selectedIndex);
             this.day = false;
             this.take_turn();
         } else {
+            this.remember_choices(maf);
             maf.remove(maf.selectedIndex);
             civ.remove(maf.selectedIndex);
             this.day = true;
@@ -69,7 +71,25 @@ class Player {
     // NOTES FOR WHAT TO DO TOMORROW. make a for loop for making the selectors remember, and begin working on the logic for the other pages. impliment a history mechanic.
 
     update_history() {
+        const civ = document.getElementById("vote");
+        const maf = document.getElementById("mafia");
+        if (localStorage.getItem("history") != null) {
+            for(let i = 0; i < localStorage.getItem("historyIndex"); i++) {
+                civ.remove(localStorage.getItem(`history${i}`));
+                maf.remove(localStorage.getItem(`history${i}`));
+            }
+        } 
+    }
 
+    remember_choices(choice) {
+        if (localStorage.getItem("historyIndex") == null) {
+            localStorage.setItem("history1", choice.selectedIndex);
+            localStorage.setItem("historyIndex", 1); 
+        } else {
+            let i = parseInt(localStorage.getItem("historyIndex")) + 1;
+            localStorage.setItem(`history${i}`, choice.selectedIndex);
+            localStorage.setItem("historyIndex", i);
+        }
     }
 
 }
@@ -79,4 +99,5 @@ const the_player = new Player();
 if (the_player.first) {
     the_player.update_info();
     the_player.first = false;
+    the_player.update_history();
 }
