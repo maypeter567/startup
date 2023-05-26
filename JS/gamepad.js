@@ -7,6 +7,7 @@ class Player {
     first;
     email;
     password;
+    day;
 
     constructor(conRole = "civilian") {
         this.role_revealed = false;
@@ -16,6 +17,7 @@ class Player {
         this.first = true;
         this.email = localStorage.getItem("user_login");
         this.password = localStorage.getItem("user_password");
+        this.day = true;
         if (localStorage.getItem("role") == null) {
             localStorage.setItem("role", this.player_role);
             this.first = false;
@@ -40,15 +42,32 @@ class Player {
     update_info() {
         const first = document.querySelector("#player_email");
         first.textContent = this.email;
+        if (this.player_role == "civilian") {
+            const maf = document.getElementById("mafia");
+            maf.disabled = true;
+        } else {
+            const civ = document.getElementById("vote");
+            civ.disabled = true;
+        }
     }
 
     take_turn() {
         const civ = document.getElementById("vote");
         const maf = document.getElementById("mafia");
-        civ.remove(civ.selectedIndex);
-        maf.remove(civ.selectedIndex);
-        maf.remove(maf.selectedIndex);
-        civ.remove(maf.selectedIndex)
+        if (this.day) {
+            civ.remove(civ.selectedIndex);
+            maf.remove(civ.selectedIndex);
+            this.day = false;
+            this.take_turn();
+        } else {
+            maf.remove(maf.selectedIndex);
+            civ.remove(maf.selectedIndex);
+            this.day = true;
+        }
+    }
+
+    update_history() {
+        
     }
 
 }
