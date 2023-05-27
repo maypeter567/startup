@@ -44,10 +44,10 @@ class Player {
         first.textContent = this.email;
         if (this.player_role == "civilian") {
             const maf = document.getElementById("mafia");
-            maf.disabled = true;
+            // maf.disabled = true;
         } else {
             const civ = document.getElementById("vote");
-            civ.disabled = true;
+            // civ.disabled = true;
         }
     }
 
@@ -56,14 +56,14 @@ class Player {
         const maf = document.getElementById("mafia");
         if (this.day) {
             this.remember_choices(civ);
-            civ.remove(civ.selectedIndex);
             maf.remove(civ.selectedIndex);
+            civ.remove(civ.selectedIndex);
             this.day = false;
             this.take_turn();
         } else {
             this.remember_choices(maf);
-            maf.remove(maf.selectedIndex);
             civ.remove(maf.selectedIndex);
+            maf.remove(maf.selectedIndex);
             this.day = true;
         }
     }
@@ -73,8 +73,8 @@ class Player {
     update_history() {
         const civ = document.getElementById("vote");
         const maf = document.getElementById("mafia");
-        if (localStorage.getItem("history") != null) {
-            for(let i = 0; i < localStorage.getItem("historyIndex"); i++) {
+        if (localStorage.getItem("historyIndex") != null) {
+            for(let i = 1; i <= localStorage.getItem("historyIndex"); i++) {
                 civ.remove(localStorage.getItem(`history${i}`));
                 maf.remove(localStorage.getItem(`history${i}`));
             }
@@ -92,6 +92,9 @@ class Player {
         }
     }
 
+    display_history() {
+        
+    }
 }
 
 const the_player = new Player();
