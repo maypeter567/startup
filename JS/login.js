@@ -3,5 +3,5 @@ function login() {
   const password = document.querySelector("#user_password");
   localStorage.setItem("user_login", login.value);
   localStorage.setItem("user_password", password.value);
-  window.location.href = "gamepad.html";
+  window.location.href = "/HTML/gamepad.html";
 }
