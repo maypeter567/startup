@@ -100,12 +100,14 @@ class Player {
 
         const new_data = document.createElement("li");
         new_data.textContent = selection.options[i].value;
+        new_data.setAttribute("class", "history-entry")
 
-        unordered.appendChild(new_data);
+        unordered.prepend(new_data);
 
-        // if (selection.length > 4) {
-        //     unordered.remove(4);
-        // }
+        if (localStorage.getItem("historyIndex") > 4) {
+            let elements = document.querySelectorAll(".history-entry");
+            elements[4].parentNode.removeChild(elements[4]);
+        }
     }
 }
 
