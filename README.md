@@ -52,3 +52,11 @@ I organized the css for my application
 - Picture: I implimented my picture behind the gamepad to represent when a user dies. currently is always displayed. had to change method of implication in html.
 - Colour: I went for a darker theme for the murder mystery vibes.
 - Sizing: the browser can be any size and the fonts and spacing will adapt for it.
+
+
+## JS Deliverable
+- Login: the login stores the email and password of the user in local storage, but will be used to share to the database later.
+- Database: the database remembers all choices and interactions from the game, currently it is stored in local storage.
+- Websocket: the websocket will be used to update the history of choices in the game, and the current viewers/players in the game.
+- application logic: the server will handle interactions with the user to see if players are eliminated. currently this logic is not possible with only one player, so the game always concludes their votes.
+- the other pages will contain similar JS as the gamepage, but a history is difficult to keep without the server storing it. these will be flushed out in the future.
