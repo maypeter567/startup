@@ -58,12 +58,14 @@ class Player {
             this.remember_choices(civ);
             this.display_history(civ, civ.selectedIndex);
             maf.remove(civ.selectedIndex);
+            civ.remove(civ.selectedIndex);
             this.day = false;
             this.take_turn();
         } else {
             this.remember_choices(maf);
             this.display_history(maf, maf.selectedIndex);
             civ.remove(maf.selectedIndex);
+            maf.remove(maf.selectedIndex);
             this.day = true;
         }
     }
