@@ -96,14 +96,14 @@ class Player {
     display_history(selection, i) {
         const unordered = document.getElementById("unordered-list");
 
-        // const new_data = document.createElement("li");
-        // new_data.textContent = selection.options[i].value;
+        const new_data = document.createElement("li");
+        new_data.textContent = selection.options[i].value;
 
-        unordered.appendChild(document.createElement("li").textContent = selection.options[i].value);
+        unordered.appendChild(new_data);
 
-        if (selection.length > 4) {
-            unordered.remove(4);
-        }
+        // if (selection.length > 4) {
+        //     unordered.remove(4);
+        // }
     }
 }
 
