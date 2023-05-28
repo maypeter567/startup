@@ -44,10 +44,10 @@ class Player {
         first.textContent = this.email;
         if (this.player_role == "civilian") {
             const maf = document.getElementById("mafia");
-            // maf.disabled = true;
+            maf.disabled = true;
         } else {
             const civ = document.getElementById("vote");
-            // civ.disabled = true;
+            civ.disabled = true;
         }
     }
 
@@ -58,14 +58,12 @@ class Player {
             this.remember_choices(civ);
             this.display_history(civ, civ.selectedIndex);
             maf.remove(civ.selectedIndex);
-            civ.remove(civ.selectedIndex);
             this.day = false;
             this.take_turn();
         } else {
             this.remember_choices(maf);
             this.display_history(maf, maf.selectedIndex);
             civ.remove(maf.selectedIndex);
-            maf.remove(maf.selectedIndex);
             this.day = true;
         }
     }
