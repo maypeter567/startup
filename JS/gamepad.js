@@ -56,12 +56,14 @@ class Player {
         const maf = document.getElementById("mafia");
         if (this.day) {
             this.remember_choices(civ);
+            this.display_history(civ, civ.selectedIndex);
             maf.remove(civ.selectedIndex);
             civ.remove(civ.selectedIndex);
             this.day = false;
             this.take_turn();
         } else {
             this.remember_choices(maf);
+            this.display_history(maf, maf.selectedIndex);
             civ.remove(maf.selectedIndex);
             maf.remove(maf.selectedIndex);
             this.day = true;
@@ -75,6 +77,7 @@ class Player {
         const maf = document.getElementById("mafia");
         if (localStorage.getItem("historyIndex") != null) {
             for(let i = 1; i <= localStorage.getItem("historyIndex"); i++) {
+                this.display_history(civ, `history${i}`)
                 civ.remove(localStorage.getItem(`history${i}`));
                 maf.remove(localStorage.getItem(`history${i}`));
             }
@@ -92,8 +95,17 @@ class Player {
         }
     }
 
-    display_history() {
-        
+    display_history(selection, i) {
+        const unordered = document.getElementById("unordered-list");
+
+        // const new_data = document.createElement("li");
+        // new_data.textContent = selection.options[i].value;
+
+        unordered.appendChild(document.createElement("li").textContent = selection.options[i].value);
+
+        if (selection.length > 4) {
+            unordered.remove(4);
+        }
     }
 }
 
