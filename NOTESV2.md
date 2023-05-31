@@ -244,3 +244,110 @@ application, https. transport, TCP. internet, IP. link, fiber/hardware.
 
 https port is 443
 
+## May 30
+
+browsers have the power to deny a website from requesting information by checking the origin and requested website.
+
+endpoints and API's are the same thing, and can be interchangable. Just like everything else with CS. Ton's of names for everything.
+
+REST: is the idea that http must be used as much as possible.
+
+GraphQL: instead o fdefining a bunch of rest endpoints, we have a query that looks for anything needed in the database and puts it together in a way that works best.
+
+I think I missed one... whoops, look at slides.
+
+you can never understand everything, especially at the complexity that they exist today. but we should try and understand the system.
+
+NVM: Node version manager
+
+Node: JavaScript runtime, this enables you to run JS on the terminal.
+
+NPM: Node package manager, this allows people to make opensource JS that people can just grab and move onto your machines.
+
+to bring in javascript for your code, make a variable or a let set to require('thing to import')
+
+you can then use class calls for methods on the object.
+
+you do not need an extension to use node debugger in VScode.
+
+npm install express // this is the code used to install the server building stuff. it makes making websites very efficient and quick. (assumming I didn't remember wrong haha)...
+
+### old code for servers
+
+const http = require('http');
+const server = http.createServer(function (req, res) {
+ res.writeHead(200, { 'Content-Type': 'application/json' });
+ res.write(`{"method": "${req.method}", "path":"${req.url}"}`);
+ res.end();
+});
+
+server.listen(3000, () => {
+ console.log(`Web service listening on port 3000`);
+});
+
+### new code for servers
+
+const express = require('express');
+const app = express();
+
+app.get('*', (req, res) => {
+  res.send('<h1>Hello Express!</h1>');
+});
+
+app.listen(8080);
+
+### notes
+
+express is composible, which means that it can chain middleware to handle whatever your service requests.
+
+### code
+
+app.use([path,] callback(req, res, next));
+
+the path is optional, req is request, res is response, next is next.
+
+app.use(function (req, res, next) {
+ console.log('Time: %d', Date.now());
+ next();
+});
+
+
+### notes
+
+all of the notes for todays class came from me watching Lee Jensen make a server, and keep changing the code to show what's changing.
+
+### code
+
+app.use(express.static('public'));
+
+this is added to build the middleware.
+
+he made a big line of code that I don't have time to slap together.
+
+const app = express();
+
+app.use(function (req, res, next) {
+ console.log('Time: %d', Date.now());
+ next();
+});
+
+app.use(express.static blah blah) // ran out of time to copy code.
+
+### notes
+
+I got a little lost haha, we are takling about routing
+
+### code
+
+app.get('/', (req, res) => {
+ throw new Error('Help!');
+});
+
+app.use(function (err, req, res, next) {
+ console.error(err.stack);
+ res.status(500).send('Trouble!');
+});
+
+
+### code seperated by an in class break and new slides
+
