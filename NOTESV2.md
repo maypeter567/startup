@@ -252,7 +252,7 @@ endpoints and API's are the same thing, and can be interchangable. Just like eve
 
 REST: is the idea that http must be used as much as possible.
 
-GraphQL: instead o fdefining a bunch of rest endpoints, we have a query that looks for anything needed in the database and puts it together in a way that works best.
+GraphQL: instead of defining a bunch of rest endpoints, we have a query that looks for anything needed in the database and puts it together in a way that works best.
 
 I think I missed one... whoops, look at slides.
 
