@@ -109,6 +109,12 @@ class Player {
             elements[4].parentNode.removeChild(elements[4]);
         }
     }
+
+    async get_players() {
+        let response = await fetch('/api/get_players');
+        let players = await response.json;
+        localStorage.setItem('players', JSON.stringify(players));
+    }
 }
 
 const the_player = new Player();
@@ -117,4 +123,5 @@ if (the_player.first) {
     the_player.update_info();
     the_player.first = false;
     the_player.update_history();
+    the_player.get_players();
 }

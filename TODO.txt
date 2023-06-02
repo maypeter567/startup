@@ -1,0 +1,2 @@
+I just finished making a framework for the fetching of player names and history, but the actual implimentation needs to be thought out more and planned out.
+

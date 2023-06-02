@@ -25,7 +25,15 @@ app.use(`/api`, apiRouter);
 //   res.send(scores);
 // });
 
+//get players
+apiRouter.get('function name here', (_req, res) => {
+    res.send(players);
+});
 
+//get history
+apiRouter.get('function name here', (_req, res) => {
+    res.send(history)
+})
 
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
@@ -38,6 +46,7 @@ app.listen(port, () => {
 
 
 const debug = true;
+let history = [];
 
 if (debug) {
     let players = [player1, player2, player3, player4, player5, player6, player7. player8, player9, player10];
