@@ -25,6 +25,8 @@ app.use(`/api`, apiRouter);
 //   res.send(scores);
 // });
 
+
+
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
@@ -33,3 +35,29 @@ app.use((_req, res) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+
+const debug = true;
+
+if (debug) {
+    let players = [player1, player2, player3, player4, player5, player6, player7. player8, player9, player10];
+} else {
+    let players = [];
+}
+
+function remove_player(playerIndex) {
+
+}
+
+function new_player(player_name) {
+
+}
+
+function end_game(player_name, result) {
+
+}
+
+function update_history() {
+
+}
+
