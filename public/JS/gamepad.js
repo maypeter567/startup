@@ -26,7 +26,7 @@ class Player {
         }
     }
 
-
+    // simple interactable button to remind you what your role is.
     reveal_role() {
         if (this.role_revealed === false) {
             this.role_revealed = true;
@@ -39,6 +39,7 @@ class Player {
         }
     }
 
+    // makes sure the current class and email are displayed.
     update_info() {
         const first = document.querySelector("#player_email");
         first.textContent = this.email;
@@ -51,6 +52,7 @@ class Player {
         }
     }
 
+    // simulates a voting period.
     take_turn() {
         const civ = document.getElementById("vote");
         const maf = document.getElementById("mafia");
@@ -72,6 +74,7 @@ class Player {
 
     // NOTES FOR WHAT TO DO TOMORROW. make a for loop for making the selectors remember, and begin working on the logic for the other pages. impliment a history mechanic.
 
+    // updates the dropdowns for the players so that dead players do not show up.
     update_history() {
         const civ = document.getElementById("vote");
         const maf = document.getElementById("mafia");
@@ -84,6 +87,7 @@ class Player {
         }
     }
 
+    // makes breadcrumbs of game history.
     remember_choices(choice) {
         if (localStorage.getItem("historyIndex") == null) {
             localStorage.setItem("history1", choice.selectedIndex);
@@ -95,6 +99,7 @@ class Player {
         }
     }
 
+    // puts any history into its relevant tab.
     display_history(selection, i) {
         const unordered = document.getElementById("unordered-list");
 
@@ -110,6 +115,7 @@ class Player {
         }
     }
 
+    // calls to the server and retrieves player names.
     async get_players() {
         let players;
         try {
@@ -140,9 +146,8 @@ class Player {
 
 const the_player = new Player();
 
-if (the_player.first) {
-    the_player.update_info();
-    the_player.first = false;
-    the_player.update_history();
-    the_player.get_players();
-}
+
+the_player.update_info();
+the_player.first = false;
+the_player.update_history();
+the_player.get_players();
