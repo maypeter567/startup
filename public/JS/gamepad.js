@@ -76,18 +76,18 @@ class Player {
         const civ = document.getElementById("vote");
         const maf = document.getElementById("mafia");
         if (localStorage.getItem("historyIndex") != null) {
-            for(let i = 1; i <= localStorage.getItem("historyIndex"); i++) {
+            for (let i = 1; i <= localStorage.getItem("historyIndex"); i++) {
                 this.display_history(civ, `history${i}`)
                 civ.remove(localStorage.getItem(`history${i}`));
                 maf.remove(localStorage.getItem(`history${i}`));
             }
-        } 
+        }
     }
 
     remember_choices(choice) {
         if (localStorage.getItem("historyIndex") == null) {
             localStorage.setItem("history1", choice.selectedIndex);
-            localStorage.setItem("historyIndex", 1); 
+            localStorage.setItem("historyIndex", 1);
         } else {
             let i = parseInt(localStorage.getItem("historyIndex")) + 1;
             localStorage.setItem(`history${i}`, choice.selectedIndex);
