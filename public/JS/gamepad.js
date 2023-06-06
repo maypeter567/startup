@@ -114,17 +114,17 @@ class Player {
         let players;
         try {
         let response = await fetch('/api/get_players');
-        players = await response.json;
+        players = await response.json();
         localStorage.setItem('players', JSON.stringify(players));
         } catch {
             players = localStorage.getItem('players');
         }
         if (players) {
-            let table_header = document.getElementById('player-table-th');
-            let j = 0;
-            for (i in players) {
+            const table_header = document.getElementById('player-table-th');
+            let j = 1;
+            for (const [i, player] of players.entries()) {
                 let obj_td = document.createElement('td');
-                obj_td.textContent = i;
+                obj_td.textContent = player;
                 obj_td.setAttribute('id', 'player-table-td');
                 table_header.appendChild(obj_td);
                 if (j%2 == 0) {
