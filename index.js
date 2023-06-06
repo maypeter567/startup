@@ -26,7 +26,7 @@ app.use(`/api`, apiRouter);
 // });
 
 //get players
-apiRouter.get('function name here', (_req, res) => {
+apiRouter.get('/get_players', (_req, res) => {
   res.send(players);
 });
 

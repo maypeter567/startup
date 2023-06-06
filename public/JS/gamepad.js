@@ -111,9 +111,30 @@ class Player {
     }
 
     async get_players() {
+        let players;
+        try {
         let response = await fetch('/api/get_players');
-        let players = await response.json;
+        players = await response.json;
         localStorage.setItem('players', JSON.stringify(players));
+        } catch {
+            players = localStorage.getItem('players');
+        }
+        if (players) {
+            let table_header = document.getElementById('player-table-th');
+            let j = 0;
+            for (i in players) {
+                let obj_td = document.createElement('td');
+                obj_td.textContent = i;
+                obj_td.setAttribute('id', 'player-table-td');
+                table_header.appendChild(obj_td);
+                if (j%2 == 0) {
+                    let obj_tr = document.createElement('tr');
+                    obj_tr.setAttribute('id', 'player-table-tr');
+                    table_header.appendChild(obj_tr);
+                }
+                j++;
+            }
+        }
     }
 }
 
