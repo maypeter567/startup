@@ -348,6 +348,21 @@ app.use(function (err, req, res, next) {
  res.status(500).send('Trouble!');
 });
 
+## June 6
 
+websockets are what allow two computers to communicate. an upgrade from a server client method.
 
+make sure you install websocket!!! 'npm install ws'
+
+it is possible to take a blank front end and input the functions and logic into the browser live. no need to pre-build it.
+
+the websocket package is ws, it has the JS code for websocket.
+
+you use ws to manage web socket connections, but for your servers to have use express to get stuff to interact.
+
+I want to use websocket so that my game can update the decisions of the players live.
+
+JSX is the idea of combining JS and HTML, but browsers are very picky with understanding them seperately.
+
+BABEL take in JSX and converts it into JS with the react syntax.
 
