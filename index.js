@@ -31,7 +31,7 @@ apiRouter.get('/get_players', (_req, res) => {
 });
 
 //get history
-apiRouter.get('function name here', (_req, res) => {
+apiRouter.get('/get_history', (_req, res) => {
   res.send(history)
 })
 
