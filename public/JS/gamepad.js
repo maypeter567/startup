@@ -4,7 +4,6 @@ class Player {
     alive;
     player_role;
     hider;
-    first;
     email;
     password;
     day;
@@ -14,7 +13,6 @@ class Player {
         this.alive = true;
         this.player_role = conRole;
         this.hider = "Click to reveal your role"
-        this.first = true;
         this.email = localStorage.getItem("user_login");
         this.password = localStorage.getItem("user_password");
         this.day = true;
@@ -80,7 +78,7 @@ class Player {
         const maf = document.getElementById("mafia");
         if (localStorage.getItem("historyIndex") != null) {
             for (let i = 1; i <= localStorage.getItem("historyIndex"); i++) {
-                this.display_history(civ, `history${i}`)
+                this.display_history(civ, localStorage.getItem(`history${i}`));
                 civ.remove(localStorage.getItem(`history${i}`));
                 maf.remove(localStorage.getItem(`history${i}`));
             }
@@ -142,12 +140,19 @@ class Player {
             }
         }
     }
+
+    async get_history() {
+
+    }
+
+    async push_history() {
+        
+    }
 }
 
 const the_player = new Player();
 
 
 the_player.update_info();
-the_player.first = false;
 the_player.update_history();
 the_player.get_players();
