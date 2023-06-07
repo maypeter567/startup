@@ -55,6 +55,7 @@ class Player {
         const civ = document.getElementById("vote");
         const maf = document.getElementById("mafia");
         if (this.day) {
+            this.push_history(civ.selectedIndex);
             this.remember_choices(civ);
             this.display_history(civ, civ.selectedIndex);
             maf.remove(civ.selectedIndex);
@@ -62,6 +63,7 @@ class Player {
             this.day = false;
             this.take_turn();
         } else {
+            this.push_history(maf.selectedIndex);
             this.remember_choices(maf);
             this.display_history(maf, maf.selectedIndex);
             civ.remove(maf.selectedIndex);
@@ -174,22 +176,56 @@ class Player {
     }
 
     // pushes history to the server.
-    async push_history() {
+    async push_history(selectedIndex) {
+        // let content = JSON.parse(localStorage.getItem('historyArchive')).append(selectedIndex);
+        try {
+            const response = await fetch('/api/update_history', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify([selectedIndex]),
+            });
 
+            const test = await response.json();
+            localStorage.setItem('historyArchive', JSON.stringify(test));
+        } catch {
+            let test = JSON.parse(localStorage.getItem('historyArchive')) + selectedIndex[0];
+            localStorage.setItem('historyArchive', JSON.stringify(test));
+        }
     }
+
+    // async saveScore(score) {
+    //     const userName = this.getPlayerName();
+    //     const date = new Date().toLocaleDateString();
+    //     const newScore = { name: userName, score: score, date: date };
+
+    //     try {
+    //         const response = await fetch('/api/score', {
+    //             method: 'POST',
+    //             headers: { 'content-type': 'application/json' },
+    //             body: JSON.stringify(newScore),
+    //         });
+
+    //         // Store what the service gave us as the high scores
+    //         const scores = await response.json();
+    //         localStorage.setItem('scores', JSON.stringify(scores));
+    //     } catch {
+    //         // If there was an error then just track scores locally
+    //         this.updateScoresLocal(newScore);
+    //     }
+    // }
 
     reset_players() {
         const list_of_players = JSON.parse(localStorage.getItem('players'));
         if (list_of_players) {
             const select1 = document.getElementById('vote');
             const select2 = document.getElementById('mafia');
-            select1.innerHTML='';
-            select2.innerHTML='';
+            select1.innerHTML = '';
+            select2.innerHTML = '';
             for (const [i, current_player] of list_of_players.entries()) {
                 let obj_opt1 = document.createElement('option');
                 let obj_opt2 = document.createElement('option');
                 obj_opt1.textContent = current_player;
-                obj_opt2.textContent = current_player; 
+                obj_opt2.textContent = current_player;
                 select1.appendChild(obj_opt1);
                 select2.appendChild(obj_opt2);
             }

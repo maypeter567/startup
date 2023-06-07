@@ -35,6 +35,12 @@ apiRouter.get('/get_history', (_req, res) => {
   res.send(history)
 })
 
+// record history
+apiRouter.post('/update_history', (req, res) => {
+  history.push(req.body[0]);
+  res.send(history);
+});
+
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
@@ -67,7 +73,7 @@ function end_game(player_name, result) {
 
 }
 
-function update_history() {
+function update_history_internal() {
 
 }
 
