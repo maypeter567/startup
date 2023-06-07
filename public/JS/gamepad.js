@@ -97,6 +97,18 @@ class Player {
         }
     }
 
+    // similar to remember_choices, but for pulling from endpoints. it's designed to be used in a for loop when the local storage for historyIndex is deleted.
+    update_choices(index) {
+        if (localStorage.getItem("historyIndex") == null) {
+            localStorage.setItem("history1", index);
+            localStorage.setItem("historyIndex", 1);
+        } else {
+            let i = parseInt(localStorage.getItem("historyIndex")) + 1;
+            localStorage.setItem(`history${i}`, index);
+            localStorage.setItem("historyIndex", i);
+        }
+    }
+
     // puts any history into its relevant tab.
     display_history(selection, i) {
         const unordered = document.getElementById("unordered-list");
@@ -117,11 +129,11 @@ class Player {
     async get_players() {
         let players;
         try {
-        let response = await fetch('/api/get_players');
-        players = await response.json();
-        localStorage.setItem('players', JSON.stringify(players));
+            let response = await fetch('/api/get_players');
+            players = await response.json();
+            localStorage.setItem('players', JSON.stringify(players));
         } catch {
-            players = localStorage.getItem('players');
+            players = JSON.parse(localStorage.getItem('players'));
         }
         if (players) {
             const table_header = document.getElementById('player-table-th');
@@ -131,7 +143,7 @@ class Player {
                 obj_td.textContent = player;
                 obj_td.setAttribute('id', 'player-table-td');
                 table_header.appendChild(obj_td);
-                if (j%2 == 0) {
+                if (j % 2 == 0) {
                     let obj_tr = document.createElement('tr');
                     obj_tr.setAttribute('id', 'player-table-tr');
                     table_header.appendChild(obj_tr);
@@ -141,12 +153,47 @@ class Player {
         }
     }
 
+    // update the local choices history to match the server.
     async get_history() {
+        let history;
+        try {
+            let response = await fetch('/api/get_history');
+            history = await response.json();
+            localStorage.setItem('historyArchive', JSON.stringify(history));
+        } catch {
+            history = localStorage.getItem('historyArchive');
+        }
+        if (history) {
+            localStorage.removeItem('historyIndex');
+            for (const [i, hist] of history.entries()) {
+                this.update_choices(hist);
+            }
+            this.reset_players();
+            this.update_history();
+        }
+    }
+
+    // pushes history to the server.
+    async push_history() {
 
     }
 
-    async push_history() {
-        
+    reset_players() {
+        const list_of_players = JSON.parse(localStorage.getItem('players'));
+        if (list_of_players) {
+            const select1 = document.getElementById('vote');
+            const select2 = document.getElementById('mafia');
+            select1.innerHTML='';
+            select2.innerHTML='';
+            for (const [i, current_player] of list_of_players.entries()) {
+                let obj_opt1 = document.createElement('option');
+                let obj_opt2 = document.createElement('option');
+                obj_opt1.textContent = current_player;
+                obj_opt2.textContent = current_player; 
+                select1.appendChild(obj_opt1);
+                select2.appendChild(obj_opt2);
+            }
+        }
     }
 }
 
@@ -154,5 +201,5 @@ const the_player = new Player();
 
 
 the_player.update_info();
-the_player.update_history();
 the_player.get_players();
+the_player.get_history();
