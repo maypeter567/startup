@@ -231,6 +231,17 @@ class Player {
             }
         }
     }
+
+    random_quote() {
+        fetch('https://api.quotable.io/random')
+        .then((response) => response.json())
+        .then((data) => {
+            const table = document.querySelector('.header-table');
+            const table_data = document.createElement('td');
+            table_data.textContent=data.content;
+            table.appendChild(table_data);
+        })
+    }
 }
 
 const the_player = new Player();
@@ -239,3 +250,4 @@ const the_player = new Player();
 the_player.update_info();
 the_player.get_players();
 the_player.get_history();
+the_player.random_quote();
