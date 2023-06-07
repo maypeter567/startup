@@ -60,3 +60,11 @@ I organized the css for my application
 - Websocket: the websocket will be used to update the history of choices in the game, and the current viewers/players in the game.
 - application logic: the server will handle interactions with the user to see if players are eliminated. currently this logic is not possible with only one player, so the game always concludes their votes.
 - the other pages will contain similar JS as the gamepage, but a history is difficult to keep without the server storing it. these will be flushed out in the future.
+
+
+## Service Deliverable
+- Game History: the game now sends its history to the backend so it can be recorded and called upon.
+- backend service endpoints: sends players in the game, and game history.
+- Quote: used quote import methods.
+- got it all done!
+
