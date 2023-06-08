@@ -366,3 +366,55 @@ JSX is the idea of combining JS and HTML, but browsers are very picky with under
 
 BABEL take in JSX and converts it into JS with the react syntax.
 
+## June 8
+
+### Reactivity
+
+is triggered by properties to components
+State on components
+
+shadow DOM is when the page is rendered behind the scenes before updating what the user sees.
+
+hooks:
+  useState - component state (internal objects and stuff I think...)
+  useEffect - lifecycle and external events (side effects, such as http calls)
+
+calls to the shadow DOM can be made with a custom made function when you set it up to use the shadow dom
+
+### example code with a renderer for react
+
+function Top() {
+  const [x, myFriendBob] = React.useState('cow');
+  return (
+    <div onclick={() => myFriendBob("fish")}>
+      hello {x}
+      <UseEffectHookDemo />
+    </div>
+  );
+}
+
+function UseEffectHookDemo() {
+  const [y, setY] = React.useState(3);
+
+  React.useEffect(() => {
+    console.log('rendered')
+  }, [y]);
+
+  return <div>useEffectExample</div>
+}
+
+react went looking down in the children to update the nodes, but only when an update happens.
+
+### notes
+
+things to remember about hooks
+- only in function components
+- only at top function scope
+- no loops or conditionals
+
+dang these notes get lost in the marathon of this class.
+
+
+select a word, then command d.
+or command shift l.
+
