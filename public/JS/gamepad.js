@@ -242,6 +242,24 @@ class Player {
             table.appendChild(table_data);
         })
     }
+
+    // this funciton "resets" the game.
+    async reset() {
+        const temp = localStorage.getItem('user_login');
+        localStorage.clear();
+        localStorage.setItem('user_login', temp);
+        let result;
+        try {
+            let response = await fetch('/api/reset');
+            result = await response.json();
+            result = JSON.stringify(result);
+        } catch {
+            result = true;
+        }
+        if (result) {
+        location.reload();
+        }
+    }
 }
 
 const the_player = new Player();

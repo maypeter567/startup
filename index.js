@@ -33,7 +33,13 @@ apiRouter.get('/get_players', (_req, res) => {
 //get history
 apiRouter.get('/get_history', (_req, res) => {
   res.send(history)
-})
+});
+
+//reset trigger
+apiRouter.get('/reset', (_req, res) => {
+  reset();
+  res.send(true);
+});
 
 // record history
 apiRouter.post('/update_history', (req, res) => {
@@ -77,3 +83,7 @@ function update_history_internal() {
 
 }
 
+// this removes any data saved in the server so that the game does not get stuck.
+function reset() {
+  history = [];
+}
