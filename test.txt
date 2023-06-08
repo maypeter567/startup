@@ -1,0 +1,1 @@
+const url = 'mongodb+srv://maypeter:<password>@cluster0.hbaffmv.mongodb.net/'
