@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const DB = require('./database.js')
 
 // The service port. In production the frontend code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -30,6 +31,12 @@ apiRouter.get('/get_players', (_req, res) => {
   res.send(players);
 });
 
+//add player
+apiRouter.post('/add_player', (req, res) => {
+  players.push(req.body[0]);
+  res.send(players);
+});
+
 //get history
 apiRouter.get('/get_history', (_req, res) => {
   res.send(history)
@@ -52,6 +59,12 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
+// Return player match history from DB
+apiRouter.get('/playerRecords', async (req, res) => {
+  const player_records = await DB.playerRecords();
+  res.send(player_records);
+})
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
@@ -67,37 +80,24 @@ if (debug) {
   players = [];
 }
 
-function remove_player(playerIndex) {
+// function remove_player(playerIndex) {
 
-}
+// }
 
 function new_player(player_name) {
-
+  players.push(player_name);
 }
 
-function end_game(player_name, result) {
+// function end_game(player_name, result) {
 
-}
+// }
 
-function update_history_internal() {
+// function update_history_internal() {
 
-}
+// }
 
 // this removes any data saved in the server so that the game does not get stuck.
 function reset() {
   history = [];
 }
 
-const config = require('./dbConfig.json');
-
-const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
-const client = new MongoClient(url);
-const db = client.db('rental');
-
-(async function testConnection() {
-  await client.connect();
-  await db.command({ ping: 1 });
-})().catch((ex) => {
-  console.log(`Unable to connect to database with ${url} because ${ex.message}`);
-  process.exit(1);
-});

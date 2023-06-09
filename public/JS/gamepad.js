@@ -234,13 +234,13 @@ class Player {
 
     random_quote() {
         fetch('https://api.quotable.io/random')
-        .then((response) => response.json())
-        .then((data) => {
-            const table = document.querySelector('.header-table');
-            const table_data = document.createElement('td');
-            table_data.textContent=data.content;
-            table.appendChild(table_data);
-        })
+            .then((response) => response.json())
+            .then((data) => {
+                const table = document.querySelector('.header-table');
+                const table_data = document.createElement('td');
+                table_data.textContent = data.content;
+                table.appendChild(table_data);
+            })
     }
 
     // this funciton "resets" the game.
@@ -257,7 +257,27 @@ class Player {
             result = true;
         }
         if (result) {
-        location.reload();
+            location.reload();
+        }
+    }
+
+    // this function retrieves the player history.
+    async player_records() {
+        const player_name = localStorage.getItem('user_login');
+        let result;
+        try {
+            let response = await fetch('/api/playerRecords');
+            result = await response.json();
+        } catch {
+            result = false;
+        }
+        if (result) {
+            const player_wins = result.wins;
+            const player_loses = result.loses;
+            localStorage.setItem('player_wins', player_wins);
+            localStorage.setItem('player_loses', player_loses);
+            let obj = document.getElementById('player_history');
+            obj.textContent = `Total Wins: ${player_wins}, Total Loses: ${player_loses}`;
         }
     }
 }
