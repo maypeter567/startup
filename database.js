@@ -14,10 +14,22 @@ const scoreCollection = db.collection('scores');
     process.exit(1);
 });
 
-async function player_records(player_email) {
-    const query = {email : player_email};
-    const cursor = scoreCollection.find(query);
-    return cursor.toArray();
+async function vote(player_email) {
+    let player = player_email;
+    let currentDate = new Date();
+    let time = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+    const query = { player: player, time: time};
+    const cursor = scoreCollection.insertOne(query);
+    return 
 }
 
-module.exports = { player_records }
+async function return_votes() {
+    const options = {
+        sort: { score: -1 },
+        limit: 10,
+      };
+    let query;
+    const votes = scoreCollection.find(query, options);
+}
+
+module.exports = { vote, return_votes }

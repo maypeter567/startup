@@ -51,21 +51,41 @@ class Player {
     }
 
     // simulates a voting period.
-    take_turn() {
+    async take_turn() {
         const civ = document.getElementById("vote");
         const maf = document.getElementById("mafia");
         if (this.day) {
             this.push_history(civ.selectedIndex);
             this.remember_choices(civ);
             this.display_history(civ, civ.selectedIndex);
+            try {
+                const response = await fetch('/api/vote', {
+                    method: 'POST', 
+                    headers: { 'content-type': 'application/json' }, 
+                    body: JSON.stringify([civ.options[civ.selectedIndex].text])
+                });
+                const thing = await response.json();
+            } catch {
+
+            }
             maf.remove(civ.selectedIndex);
             civ.remove(civ.selectedIndex);
             this.day = false;
-            this.take_turn();
+            await this.take_turn();
         } else {
             this.push_history(maf.selectedIndex);
             this.remember_choices(maf);
             this.display_history(maf, maf.selectedIndex);
+            try {
+                const response = await fetch('/api/vote', {
+                    method: 'POST', 
+                    headers: { 'content-type': 'application/json' }, 
+                    body: JSON.stringify([civ.selectedIndex + 'was killed in the night!'])
+                });
+                const thing = await response.json();
+            } catch {
+
+            }
             civ.remove(maf.selectedIndex);
             maf.remove(maf.selectedIndex);
             this.day = true;
@@ -116,7 +136,7 @@ class Player {
         const unordered = document.getElementById("unordered-list");
 
         const new_data = document.createElement("li");
-        new_data.textContent = selection.options[i].value;
+        new_data.textContent = selection.options[i].value + ' was found dead!';
         new_data.setAttribute("class", "history-entry")
 
         unordered.prepend(new_data);

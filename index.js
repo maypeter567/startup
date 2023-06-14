@@ -39,8 +39,19 @@ apiRouter.post('/add_player', (req, res) => {
 
 //get history
 apiRouter.get('/get_history', (_req, res) => {
-  res.send(history)
+  res.send(Desktop_history)
 });
+
+// vote
+apiRouter.post('/vote', (req, res) => {
+  DB.vote(req.body);
+  res.send(true);
+})
+
+// return vote history
+apiRouter.get('/get_votes', (_req, res) => {
+  res.send(DB.get_votes());
+})
 
 //reset trigger
 apiRouter.get('/reset', (_req, res) => {
@@ -50,8 +61,8 @@ apiRouter.get('/reset', (_req, res) => {
 
 // record history
 apiRouter.post('/update_history', (req, res) => {
-  history.push(req.body[0]);
-  res.send(history);
+  Desktop_history.push(req.body[0]);
+  res.send(Desktop_history);
 });
 
 // Return the application's default page if the path is unknown
@@ -71,7 +82,8 @@ app.listen(port, () => {
 
 
 const debug = true;
-let history = [];
+let Desktop_history = [];
+let mongo_history = [];
 let players = [];
 
 if (debug) {
@@ -98,6 +110,6 @@ function new_player(player_name) {
 
 // this removes any data saved in the server so that the game does not get stuck.
 function reset() {
-  history = [];
+  Desktop_history = [];
 }
 

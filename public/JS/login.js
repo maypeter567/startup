@@ -16,3 +16,7 @@ async function login() {
   }
   window.location.href = "/HTML/gamepad.html";
 }
+
+if (localStorage.getItem('user_login')) {
+  window.location.href = "/HTML/gamepad.html";
+}
