@@ -68,3 +68,6 @@ I organized the css for my application
 - Quote: used quote import methods.
 - got it all done!
 
+## Data Base Delivarable
+- Vote Results: when a vote goes through, the vote will now be recorded in the mongoDB so that players can see who's voted.
+- Endpoints: they are doing their job!
