@@ -62,7 +62,7 @@ class Player {
                 const response = await fetch('/api/vote', {
                     method: 'POST', 
                     headers: { 'content-type': 'application/json' }, 
-                    body: JSON.stringify([civ.options[civ.selectedIndex].text])
+                    body: JSON.stringify([civ.options[civ.selectedIndex].text + ' was voted out!'])
                 });
                 const thing = await response.json();
             } catch {
@@ -80,7 +80,7 @@ class Player {
                 const response = await fetch('/api/vote', {
                     method: 'POST', 
                     headers: { 'content-type': 'application/json' }, 
-                    body: JSON.stringify([civ.selectedIndex + 'was killed in the night!'])
+                    body: JSON.stringify([maf.options[maf.selectedIndex].text + ' was killed in the night!'])
                 });
                 const thing = await response.json();
             } catch {

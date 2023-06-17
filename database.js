@@ -14,6 +14,7 @@ const scoreCollection = db.collection('scores');
     process.exit(1);
 });
 
+// record a vote
 async function vote(player_email) {
     let player = player_email;
     let currentDate = new Date();
@@ -23,13 +24,15 @@ async function vote(player_email) {
     return 
 }
 
-async function return_votes() {
+// send votes
+async function allHistory() {
     const options = {
         sort: { score: -1 },
-        limit: 10,
+        limit : 10,
       };
-    let query;
+    let query = { player : { $ne : '!' } };
     const votes = scoreCollection.find(query, options);
+    return votes.toArray();
 }
 
-module.exports = { vote, return_votes }
+module.exports = { vote, allHistory }

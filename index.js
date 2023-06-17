@@ -76,6 +76,12 @@ apiRouter.get('/playerRecords', async (req, res) => {
   res.send(player_records);
 })
 
+// Return all history
+apiRouter.get('/get_all_History', async (req, res) => {
+  const history = await DB.allHistory();
+  res.send(history);
+})
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
