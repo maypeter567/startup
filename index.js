@@ -1,8 +1,8 @@
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
 const express = require('express');
 const app = express();
 const DB = require('./database.js');
-const cookieParser = require('cookie-parser');
-const bycrypt = requre('bycrypt');
 
 // The service port. In production the frontend code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -31,6 +31,11 @@ app.use(`/api`, apiRouter);
 //   res.send(scores);
 // });
 
+// not secure router stuff
+
+
+// secure router stuff
+
 //get players
 apiRouter.get('/get_players', (_req, res) => {
   res.send(players);
@@ -42,19 +47,33 @@ apiRouter.post('/add_player', (req, res) => {
   res.send(players);
 });
 
+// check if player account exists
+apiRouter.post('/check_player', async (req, res) => {
+  const result = await DB.get_player_name(req.body[0]);
+  if (result) {
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+});
+
+// higher security router
+var secureApiRounter = express.Router();
+apiRouter.use(secureApiRounter);
+
 //get history
-apiRouter.get('/get_history', (_req, res) => {
+secureApiRouter.get('/get_history', (_req, res) => {
   res.send(Desktop_history)
 });
 
 // vote
-apiRouter.post('/vote', (req, res) => {
+secureApiRouter.post('/vote', (req, res) => {
   DB.vote(req.body);
   res.send(true);
 })
 
 // return vote history
-apiRouter.get('/get_votes', (_req, res) => {
+secureApiRouter.get('/get_votes', (_req, res) => {
   res.send(DB.get_votes());
 })
 
@@ -65,7 +84,7 @@ apiRouter.get('/reset', (_req, res) => {
 });
 
 // record history
-apiRouter.post('/update_history', (req, res) => {
+secureApiRouter.post('/update_history', (req, res) => {
   Desktop_history.push(req.body[0]);
   res.send(Desktop_history);
 });
@@ -76,13 +95,13 @@ app.use((_req, res) => {
 });
 
 // Return player match history from DB
-apiRouter.get('/playerRecords', async (req, res) => {
+secureApiRouter.get('/playerRecords', async (req, res) => {
   const player_records = await DB.playerRecords();
   res.send(player_records);
 })
 
 // Return all history
-apiRouter.get('/get_all_History', async (req, res) => {
+secureApiRouter.get('/get_all_History', async (req, res) => {
   const history = await DB.allHistory();
   res.send(history);
 })

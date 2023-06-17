@@ -1,5 +1,5 @@
 const { MongoClient } = require('mongodb');
-const bycrypt = require('bycrypt');
+const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const config = require('./dbConfig.json');
 
@@ -38,4 +38,10 @@ async function allHistory() {
     return votes.toArray();
 }
 
-module.exports = { vote, allHistory }
+//check database for an existing player
+async function get_player_name(player) {
+    let query = { player : player };
+    return playerCollection.find(query);
+}
+
+module.exports = { vote, allHistory, get_player_name }
