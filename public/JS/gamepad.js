@@ -304,21 +304,25 @@ class Player {
     // }
 
     async logout() {
-        localStorage.removeItem('user_login');
-        localStorage.removeItem('players');
+        localStorage.clear();
         fetch('/api/logout', {
             method: 'delete',
         }).then(() => (window.location.href = '/'));
     }
+}
 
-    async authorized() {
-
+async function authorized() {
+    const result = await fetch('/api/auth_check');
+    if (result.status == 401) {
+        return false;
+    } else {
+        return true;
     }
 }
 
 const the_player = new Player();
 
-if (the_player.authorized()) {
+if (authorized()) {
     the_player.update_info();
     the_player.get_players();
     the_player.get_history();
