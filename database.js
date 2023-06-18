@@ -30,7 +30,7 @@ async function vote(player_email) {
 // send votes
 async function allHistory() {
     const options = {
-        sort: { score: -1 },
+        sort: { scores: -1 },
         limit : 10,
       };
     let query = { player : { $ne : '!' } };
@@ -41,7 +41,21 @@ async function allHistory() {
 //check database for an existing player
 async function get_player_name(player) {
     let query = { player : player };
-    return playerCollection.find(query);
+    return playerCollection.findOne(query);
 }
 
-module.exports = { vote, allHistory, get_player_name }
+// create new user
+async function create_player(email, password) {
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    const player = {
+        player: email,
+        password: passwordHash,
+        token: uuid.v4(),
+    };
+    await playerCollection.insertOne(player);
+
+    return player;
+}
+
+module.exports = { vote, allHistory, get_player_name, create_player }

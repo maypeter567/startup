@@ -143,7 +143,9 @@ class Player {
 
         if (localStorage.getItem("historyIndex") > 4) {
             let elements = document.querySelectorAll(".history-entry");
+            if (elements.length > 4) {
             elements[4].parentNode.removeChild(elements[4]);
+            }
         }
     }
 

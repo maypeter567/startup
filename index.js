@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const DB = require('./database.js');
 
+const authCookieName = 'token';
+
 // The service port. In production the frontend code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -57,9 +59,25 @@ apiRouter.post('/check_player', async (req, res) => {
   }
 });
 
+// create an account
+apiRouter.post('/create_player', async (req, res) => {
+  if (await DB.get_player_name(req.body.email)) {
+    res.status(409).send({ msg: 'existing user' });
+  } else {
+    const player = await DB.create_player(req.body.email, req.body.password);
+
+    // set cookie
+    createCookie(res, player.token);
+
+    res.send({
+      id: player._id,
+    })
+  }
+});
+
 // higher security router
-var secureApiRounter = express.Router();
-apiRouter.use(secureApiRounter);
+var secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
 
 //get history
 secureApiRouter.get('/get_history', (_req, res) => {
@@ -120,6 +138,14 @@ if (debug) {
   players = ['player1', 'player2', 'player3', 'player4', 'player5', 'player6', 'player7', 'player8', 'player9', 'player10'];
 } else {
   players = [];
+}
+
+function createCookie(res, token) {
+  res.cookie(authCookieName, token, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
 }
 
 // function remove_player(playerIndex) {

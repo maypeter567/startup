@@ -44,8 +44,22 @@ async function login() {
   }
 }
 
+// create a new account
 async function createLogin() {
-  
+  const player_login = document.querySelector("#user_login");
+  const password = document.querySelector('#user_password');
+  // send account creation request to the server.
+  const response = await fetch('api/create_player', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ email: player_login.value, password: password.value }),
+  });
+  const result = await response.json();
+  if (result) {
+    login();
+  } else {
+    alert(`there was an error logging in, ${result.body.msg}`);
+  }
 }
 
 function authenticated_check() {
