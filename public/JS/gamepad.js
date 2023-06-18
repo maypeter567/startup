@@ -305,13 +305,14 @@ class Player {
 
     async logout() {
         localStorage.removeItem('user_login');
+        localStorage.removeItem('players');
         fetch('/api/logout', {
             method: 'delete',
         }).then(() => (window.location.href = '/'));
     }
 
     async authorized() {
-        
+
     }
 }
 
