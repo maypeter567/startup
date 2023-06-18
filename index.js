@@ -88,7 +88,8 @@ apiRouter.delete('/logout', async (req, res) => {
   player_token = req.cookies[authCookieName];
   res.clearCookie(authCookieName);
   res.status(204).end();
-  player_name = await DB.getPlayerByToken(player_token);
+  player_profile = await DB.getPlayerByToken(player_token);
+  player_name = player_profile.player
   let temp = [];
   for (let i = 0; i < players.length; i++) {
     if (players[i] == player_name) {
