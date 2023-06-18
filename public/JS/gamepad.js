@@ -60,8 +60,8 @@ class Player {
             this.display_history(civ, civ.selectedIndex);
             try {
                 const response = await fetch('/api/vote', {
-                    method: 'POST', 
-                    headers: { 'content-type': 'application/json' }, 
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
                     body: JSON.stringify([civ.options[civ.selectedIndex].text + ' was voted out!'])
                 });
                 const thing = await response.json();
@@ -78,8 +78,8 @@ class Player {
             this.display_history(maf, maf.selectedIndex);
             try {
                 const response = await fetch('/api/vote', {
-                    method: 'POST', 
-                    headers: { 'content-type': 'application/json' }, 
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
                     body: JSON.stringify([maf.options[maf.selectedIndex].text + ' was killed in the night!'])
                 });
                 const thing = await response.json();
@@ -144,7 +144,7 @@ class Player {
         if (localStorage.getItem("historyIndex") > 4) {
             let elements = document.querySelectorAll(".history-entry");
             if (elements.length > 4) {
-            elements[4].parentNode.removeChild(elements[4]);
+                elements[4].parentNode.removeChild(elements[4]);
             }
         }
     }
@@ -284,34 +284,44 @@ class Player {
     }
 
     // this function retrieves the player history.
-    async player_records() {
-        const player_name = localStorage.getItem('user_login');
-        let result;
-        try {
-            let response = await fetch('/api/playerRecords');
-            result = await response.json();
-        } catch {
-            result = false;
-        }
-        if (result) {
-            const player_wins = result.wins;
-            const player_loses = result.loses;
-            localStorage.setItem('player_wins', player_wins);
-            localStorage.setItem('player_loses', player_loses);
-            let obj = document.getElementById('player_history');
-            obj.textContent = `Total Wins: ${player_wins}, Total Loses: ${player_loses}`;
-        }
+    // async player_records() {
+    //     const player_name = localStorage.getItem('user_login');
+    //     let result;
+    //     try {
+    //         let response = await fetch('/api/playerRecords');
+    //         result = await response.json();
+    //     } catch {
+    //         result = false;
+    //     }
+    //     if (result) {
+    //         const player_wins = result.wins;
+    //         const player_loses = result.loses;
+    //         localStorage.setItem('player_wins', player_wins);
+    //         localStorage.setItem('player_loses', player_loses);
+    //         let obj = document.getElementById('player_history');
+    //         obj.textContent = `Total Wins: ${player_wins}, Total Loses: ${player_loses}`;
+    //     }
+    // }
+
+    async logout() {
+        localStorage.removeItem('user_login');
+        fetch('/api/logout', {
+            method: 'delete',
+        }).then(() => (window.location.href = '/'));
     }
 
-    logout() {
-        localStorage.removeItem('')
+    async authorized() {
+        
     }
 }
 
 const the_player = new Player();
 
-
-the_player.update_info();
-the_player.get_players();
-the_player.get_history();
-the_player.random_quote();
+if (the_player.authorized()) {
+    the_player.update_info();
+    the_player.get_players();
+    the_player.get_history();
+    the_player.random_quote();
+} else {
+    window.location.href = '/';
+}

@@ -14,7 +14,7 @@ async function show_history() {
         for (const [i, test] of history.entries()) {
             new_obj = document.createElement('li');
             new_obj.textContent = test.player;
-            table_head.prepend(new_obj);
+            table_head.append(new_obj);
         }
     }
 }

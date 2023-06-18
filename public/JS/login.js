@@ -63,7 +63,11 @@ async function createLogin() {
 
 async function auth_check() {
   const result = await fetch('/api/auth_check');
-  if (result.body) {
+  if (result.status == 401) {
+    
+  } else {
     window.location.href = "/HTML/gamepad.html";
   }
 }
+
+auth_check();

@@ -83,6 +83,23 @@ apiRouter.post('/create_player', async (req, res) => {
   }
 });
 
+// Delete cookie, logout, and remove player name from list.
+apiRouter.delete('/logout', async (req, res) => {
+  player_token = req.cookies[authCookieName];
+  res.clearCookie(authCookieName);
+  res.status(204).end();
+  player_name = await DB.getPlayerByToken(player_token);
+  let temp = [];
+  for (let i = 0; i < players.length; i++) {
+    if (players[i] == player_name) {
+      1+1;
+    } else {
+      temp.push(players[i]);
+    }
+  }
+  players = temp;
+})
+
 // higher security router
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
@@ -154,7 +171,7 @@ app.listen(port, () => {
 
 const debug = true;
 let Desktop_history = [];
-let mongo_history = [];
+// let mongo_history = [];
 let players = [];
 
 if (debug) {

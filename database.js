@@ -30,7 +30,7 @@ async function vote(player_email) {
 // send votes
 async function allHistory() {
     const options = {
-        sort: { scores: -1 },
+        sort: { _id: -1 },
         limit : 10,
       };
     let query = { player : { $ne : '!' } };
