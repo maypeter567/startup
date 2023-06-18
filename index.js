@@ -43,10 +43,18 @@ apiRouter.get('/get_players', (_req, res) => {
   res.send(players);
 });
 
-//add player
-apiRouter.post('/add_player', (req, res) => {
-  players.push(req.body[0]);
-  res.send(players);
+//add player, and log in player
+apiRouter.post('/add_player', async (req, res) => {
+  const player = await DB.get_player_name(req.body.email);
+  if (player) {
+    if (await bcrypt.compare(req.body.password, player.password)) {
+      createCookie(res, player.token);
+    }
+    players.push(req.body.email);
+    res.send(players);
+  } else {
+    res.status(401).send({ msg: 'unauthorized' });
+  }
 });
 
 // check if player account exists
@@ -79,10 +87,25 @@ apiRouter.post('/create_player', async (req, res) => {
 var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
 
+secureApiRouter.use(async (req, res, next) => {
+  authToken = req.cookies[authCookieName];
+  const player = await DB.getPlayerByToken(authToken);
+  if (player) {
+    next();
+  } else {
+    res.status(401).send({ msg: 'unauthorized' });
+  }
+});
+
 //get history
 secureApiRouter.get('/get_history', (_req, res) => {
   res.send(Desktop_history)
 });
+
+// send authorized
+secureApiRouter.get('/auth_check', (_req, res) => {
+  res.status(200).send(true);
+})
 
 // vote
 secureApiRouter.post('/vote', (req, res) => {

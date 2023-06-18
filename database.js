@@ -44,6 +44,11 @@ async function get_player_name(player) {
     return playerCollection.findOne(query);
 }
 
+// check for user using token
+async function getPlayerByToken(token) {
+    return playerCollection.findOne({ token : token });
+}
+
 // create new user
 async function create_player(email, password) {
     const passwordHash = await bcrypt.hash(password, 10);
@@ -58,4 +63,10 @@ async function create_player(email, password) {
     return player;
 }
 
-module.exports = { vote, allHistory, get_player_name, create_player }
+module.exports = { 
+    vote, 
+    allHistory, 
+    get_player_name, 
+    create_player, 
+    getPlayerByToken, 
+};

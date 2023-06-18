@@ -302,6 +302,10 @@ class Player {
             obj.textContent = `Total Wins: ${player_wins}, Total Loses: ${player_loses}`;
         }
     }
+
+    logout() {
+        localStorage.removeItem('')
+    }
 }
 
 const the_player = new Player();
