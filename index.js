@@ -94,7 +94,7 @@ apiRouter.delete('/logout', async (req, res) => {
   let temp = [];
   for (let i = 0; i < players.length; i++) {
     if (players[i] == player_name) {
-      1+1;
+      1 + 1;
     } else {
       temp.push(players[i]);
     }
@@ -210,5 +210,30 @@ function new_player(player_name) {
 function reset() {
   Desktop_history = [];
 }
+
+
+
+let votes = [];
+
+function decisionMaker() {
+  if (votes.length === players.length) {
+    let player;
+    let count;
+    for (player in players) {
+      for (let i = 0; i < players.length; i++) {
+        if (votes[i] === player) {
+          count += 1;
+        }
+      }
+      if (count > player.length) {
+        voteOut(player);
+        break;
+      }
+    }
+  }
+}
+
+
+
 
 socketSetup(httpService);

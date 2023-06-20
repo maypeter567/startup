@@ -35,8 +35,20 @@ async function get_players() {
     }
 }
 
-let role_revealed = false;
-let player_role = localStorage.getItem('role');
-let hider = 'Click to reveal your role';
+async function authorized() {
+    const result = await fetch('/api/auth_check');
+    if (result.status == 401) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
-get_players();
+if (authorized()) {
+    let role_revealed = false;
+    let player_role = localStorage.getItem('role');
+    let hider = 'Click to reveal your role';
+    const first = document.querySelector("#player_email");
+    first.textContent = localStorage.getItem('user_login');
+    get_players();
+}

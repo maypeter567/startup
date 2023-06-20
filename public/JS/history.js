@@ -6,7 +6,7 @@ async function show_history() {
         history = await response.json();
         localStorage.setItem('allHistory', JSON.stringify(history));
     } catch {
-        history = localStorage.getItem('allHistory'); 
+        history = localStorage.getItem('allHistory');
     }
     if (history) {
         const table_head = document.getElementById('allHistory');
@@ -31,8 +31,20 @@ function reveal_role() {
     }
 }
 
-let role_revealed = false;
-let player_role = localStorage.getItem('role');
-let hider = 'Click to reveal your role'
+async function authorized() {
+    const result = await fetch('/api/auth_check');
+    if (result.status == 401) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
-show_history();
+if (authorized()) {
+    let role_revealed = false;
+    let player_role = localStorage.getItem('role');
+    let hider = 'Click to reveal your role'
+    const first = document.querySelector("#player_email");
+    first.textContent = localStorage.getItem('user_login');
+    show_history();
+}

@@ -7,6 +7,7 @@ class Player {
     email;
     password;
     day;
+    canVote;
 
     constructor(conRole = "civilian") {
         this.role_revealed = false;
@@ -16,6 +17,7 @@ class Player {
         this.email = localStorage.getItem("user_login");
         this.password = localStorage.getItem("user_password");
         this.day = true;
+        this.canVote = true;
         if (localStorage.getItem("role") == null) {
             localStorage.setItem("role", this.player_role);
             this.first = false;
@@ -54,41 +56,46 @@ class Player {
     async take_turn() {
         const civ = document.getElementById("vote");
         const maf = document.getElementById("mafia");
-        if (this.day) {
-            this.push_history(civ.selectedIndex);
-            this.remember_choices(civ);
-            this.display_history(civ, civ.selectedIndex);
-            try {
-                const response = await fetch('/api/vote', {
-                    method: 'POST',
-                    headers: { 'content-type': 'application/json' },
-                    body: JSON.stringify([civ.options[civ.selectedIndex].text + ' was voted out!'])
-                });
-                const thing = await response.json();
-            } catch {
+        if (this.canVote) {
+            this.canVote = false;
+            if (this.day) {
+                this.push_history(civ.selectedIndex);
+                this.remember_choices(civ);
+                this.display_history(civ, civ.selectedIndex);
+                try {
+                    const response = await fetch('/api/vote', {
+                        method: 'POST',
+                        headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify([civ.options[civ.selectedIndex].text + ' was voted out!'])
+                    });
+                    const thing = await response.json();
+                } catch {
 
+                }
+                maf.remove(civ.selectedIndex);
+                civ.remove(civ.selectedIndex);
+                this.day = false;
+                await this.take_turn();
+            } else {
+                this.push_history(maf.selectedIndex);
+                this.remember_choices(maf);
+                this.display_history(maf, maf.selectedIndex);
+                try {
+                    const response = await fetch('/api/vote', {
+                        method: 'POST',
+                        headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify([maf.options[maf.selectedIndex].text + ' was killed in the night!'])
+                    });
+                    const thing = await response.json();
+                } catch {
+
+                }
+                civ.remove(maf.selectedIndex);
+                maf.remove(maf.selectedIndex);
+                this.day = true;
             }
-            maf.remove(civ.selectedIndex);
-            civ.remove(civ.selectedIndex);
-            this.day = false;
-            await this.take_turn();
         } else {
-            this.push_history(maf.selectedIndex);
-            this.remember_choices(maf);
-            this.display_history(maf, maf.selectedIndex);
-            try {
-                const response = await fetch('/api/vote', {
-                    method: 'POST',
-                    headers: { 'content-type': 'application/json' },
-                    body: JSON.stringify([maf.options[maf.selectedIndex].text + ' was killed in the night!'])
-                });
-                const thing = await response.json();
-            } catch {
-
-            }
-            civ.remove(maf.selectedIndex);
-            maf.remove(maf.selectedIndex);
-            this.day = true;
+            alert('You have already voted');
         }
     }
 
@@ -100,7 +107,7 @@ class Player {
         const maf = document.getElementById("mafia");
         if (localStorage.getItem("historyIndex") != null) {
             for (let i = 1; i <= localStorage.getItem("historyIndex"); i++) {
-                this.display_history(civ, localStorage.getItem(`history${i}`));
+                this.display_history(civ, localStorage.getItem(`history${i}`), i);
                 civ.remove(localStorage.getItem(`history${i}`));
                 maf.remove(localStorage.getItem(`history${i}`));
             }
@@ -132,11 +139,15 @@ class Player {
     }
 
     // puts any history into its relevant tab.
-    display_history(selection, i) {
+    display_history(selection, i, k) {
         const unordered = document.getElementById("unordered-list");
 
         const new_data = document.createElement("li");
+        if (k % 2 == 0) {
         new_data.textContent = selection.options[i].value + ' was found dead!';
+        } else {
+            new_data.textContent = selection.options[i].value + ' was publicly executed!'; 
+        }
         new_data.setAttribute("class", "history-entry")
 
         unordered.prepend(new_data);
@@ -329,4 +340,40 @@ if (authorized()) {
     the_player.random_quote();
 } else {
     window.location.href = '/';
+}
+
+let socket;
+const receivedVote = 'results';
+const sendVote = 'vote';
+const newPlayerEvent = 'newPlayer';
+const removePlayerEvent = 'removePlayer';
+
+function displayMsg(cls, from, msg) {
+
+}
+
+function broadcastEvent(from, type, value) {
+    const event = {
+
+    };
+    this.socket.send(JSON.stringify(event));
+}
+
+function configureWS() {
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    socket.onopen = (event) => {
+        displayMsg();
+    };
+    socket.onclose = (event) => {
+        displayMsg();
+    };
+    socket.onmessage = async (event) => {
+        const msg = JSON.parse(await event.data.text());
+        if (msg.type === newPlayerEvent) {
+            displayMsg();
+        } else if (msg.type === removePlayerEvent) {
+            displayMsg();
+        }
+    };
 }
