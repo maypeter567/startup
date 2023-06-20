@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const app = express();
 const DB = require('./database.js');
+const { socketSetup } = require('./socketSetup.js');
 
 const authCookieName = 'token';
 
@@ -165,7 +166,7 @@ secureApiRouter.get('/get_all_History', async (req, res) => {
   res.send(history);
 })
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
@@ -210,3 +211,4 @@ function reset() {
   Desktop_history = [];
 }
 
+socketSetup(httpService);

@@ -19,4 +19,20 @@ async function show_history() {
     }
 }
 
+function reveal_role() {
+    if (role_revealed === false) {
+        role_revealed = true;
+        const obj = document.querySelector("#role_revealer");
+        obj.textContent = player_role;
+    } else {
+        role_revealed = false;
+        const obj = document.querySelector("#role_revealer");
+        obj.textContent = hider;
+    }
+}
+
+let role_revealed = false;
+let player_role = localStorage.getItem('role');
+let hider = 'Click to reveal your role'
+
 show_history();

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/CSS/players.css">
     <link rel="stylesheet" href="/CSS/header.css">
     <link rel="stylesheet" href="/CSS/footer.css">
+    <script src="/JS/players.js" defer></script>
 </head>
 
 <!-- I wanted to name the title for practice. -->
@@ -18,7 +19,7 @@
     <header class="header">
         <div class="box">
             <table class="player-table">
-                <th class="player-table">Players</th>
+                <!-- <th class="player-table">Players</th>
                 <tr></tr>
                 <td class="player-table">player1</td>
                 <td class="player-table">player2</td>
@@ -33,11 +34,11 @@
                 <td class="player-table">player8</td>
                 <tr></tr>
                 <td class="player-table">player9</td>
-                <td class="player-table">player10</td>
+                <td class="player-table">player10</td> -->
             </table>
         </div>
         <div class="btn">
-            <button type="checkbox">Click to reveal your role</button>
+            <button type="checkbox" id="role_revealer" onclick="reveal_role()">Click to reveal your role</button>
             <table class="header-table">
                 <td>Total wins: 0, Total loses: 0</td>
                 <tr></tr>
@@ -56,8 +57,8 @@
         </nav>
         <div class="players">
             <table>
-                <th>Players</th>
-                <tr></tr>
+                <th id="player-table-th">Players</th>
+                <!-- <tr></tr>
                 <td>player1</td>
                 <tr></tr>
                 <td>player2</td>
@@ -78,7 +79,7 @@
                 <tr></tr>
                 <td>player10</td>
                 <tr></tr>
-                <td>this list would continue with a scroll bar to include any number of players</td>
+                <td>this list would continue with a scroll bar to include any number of players</td> -->
             </table>
         <div>
     </main>
@@ -86,10 +87,10 @@
     <footer>
         <div class="history-list">
             <ul>
-                <li>history entry 1</li>
+                <!-- <li>history entry 1</li>
                 <li>history entry 2</li>
                 <li>history entry 3</li>
-                <li>history entry 4</li>
+                <li>history entry 4</li> -->
             </ul>
         </div>
         <div class="footer-link">
