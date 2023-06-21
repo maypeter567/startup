@@ -76,3 +76,10 @@ I organized the css for my application
 - Login: username and password are required to log in now.
 - Authorization: players need to be logged in to participate in the game now.
 - mongoDB: stores credentials.
+
+## WebSocket Deliverable
+my websocket was going to be used in updating choice dropdown boxes for players entering and leaving the game.
+- Websocket: updates names automatically on login.
+- Gameplay: uses websocket to inform all players of game results.
+- backend and frontend listen for each other.
+
