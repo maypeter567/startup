@@ -19,11 +19,13 @@ async function login() {
         const response = await fetch('/api/add_player', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ email : player_login.value, password: password.value }),
+          body: JSON.stringify({ email: player_login.value, password: password.value }),
         });
 
         if (response.ok) {
-
+          //record players role
+          let role = await response.json();
+          localStorage.setItem('role', role.role);
           // if the password matches, they will be logged in.
           window.location.href = "/HTML/gamepad.html";
         } else {
@@ -33,7 +35,7 @@ async function login() {
 
       } catch {
         // failed to connect to DB
-        alert('error 3');
+        alert('login error. code 3');
       }
     } else {
       alert('incorrect username or password error 2');
@@ -64,7 +66,7 @@ async function createLogin() {
 async function auth_check() {
   const result = await fetch('/api/auth_check');
   if (result.status == 401) {
-    
+
   } else {
     window.location.href = "/HTML/gamepad.html";
   }

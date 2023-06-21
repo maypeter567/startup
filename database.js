@@ -22,31 +22,31 @@ async function vote(player_email) {
     let player = player_email;
     let currentDate = new Date();
     let time = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
-    const query = { player: player, time: time};
+    const query = { player: player, time: time };
     const cursor = scoreCollection.insertOne(query);
-    return 
+    return
 }
 
 // send votes
 async function allHistory() {
     const options = {
         sort: { _id: -1 },
-        limit : 10,
-      };
-    let query = { player : { $ne : '!' } };
+        limit: 10,
+    };
+    let query = { player: { $ne: '!' } };
     const votes = scoreCollection.find(query, options);
     return votes.toArray();
 }
 
 //check database for an existing player
 async function get_player_name(player) {
-    let query = { player : player };
+    let query = { player: player };
     return playerCollection.findOne(query);
 }
 
 // check for user using token
 async function getPlayerByToken(token) {
-    return playerCollection.findOne({ token : token });
+    return playerCollection.findOne({ token: token });
 }
 
 // create new user
@@ -63,10 +63,10 @@ async function create_player(email, password) {
     return player;
 }
 
-module.exports = { 
-    vote, 
-    allHistory, 
-    get_player_name, 
-    create_player, 
-    getPlayerByToken, 
+module.exports = {
+    vote,
+    allHistory,
+    get_player_name,
+    create_player,
+    getPlayerByToken,
 };

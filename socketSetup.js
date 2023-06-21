@@ -5,7 +5,7 @@ function socketSetup(httpServer) {
     const wss = new WebSocketServer({ noServer: true });
 
     httpServer.on('upgrade', (request, socket, head) => {
-        wws.handleUpgrade(request, socket, head, function done(ws) {
+        wss.handleUpgrade(request, socket, head, function done(ws) {
             wss.emit('connection', ws, request);
         });
     });
@@ -18,9 +18,7 @@ function socketSetup(httpServer) {
 
         ws.on('message', function message(data) {
             connections.forEach((c) => {
-                if (c.id !== connections.id) {
-                    c.ws.send(data);
-                }
+                c.ws.send(data);
             });
         });
 

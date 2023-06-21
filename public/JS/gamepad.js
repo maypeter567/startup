@@ -1,3 +1,9 @@
+let socket;
+const mafResult = 'mafia';
+const civResult = 'vote';
+const newPlayerEvent = 'newPlayer';
+const removePlayerEvent = 'removePlayer';
+
 class Player {
 
     role_revealed;
@@ -46,53 +52,139 @@ class Player {
         if (this.player_role == "civilian") {
             const maf = document.getElementById("mafia");
             maf.disabled = true;
-        } else {
-            const civ = document.getElementById("vote");
-            civ.disabled = true;
+        }
+    }
+
+    async viewResults(results) {
+        let civInd = results[0];
+        let mafInd = results[1];
+        const civ = document.getElementById("vote");
+        const maf = document.getElementById("mafia");
+        if (civInd != -1) {
+            this.push_history(civ.options[civInd]);
+            let obj = {
+                type: civResult,
+            };
+            try {
+                const response = await fetch('/api/vote', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify([civ.options[civ.selectedIndex].text + ' was voted out!'])
+                });
+                const thing = await response.json();
+            } catch {
+
+            }
+            socket.send(JSON.stringify(obj));
+        }
+        if (mafInd != -1) {
+            let obj = {
+                type: mafResult,
+            };
+            try {
+                const response = await fetch('/api/vote', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify([maf.options[maf.selectedIndex].text + ' was killed in the night!'])
+                });
+                const thing = await response.json();
+            } catch {
+
+            }
+            socket.send(JSON.stringify(obj));
         }
     }
 
     // simulates a voting period.
+    // async take_turn() {
+    //     const civ = document.getElementById("vote");
+    //     const maf = document.getElementById("mafia");
+    //     if (this.canVote) {
+    //         this.canVote = false;
+    //         if (this.day) {
+    //             this.push_history(civ.selectedIndex);
+    //             this.remember_choices(civ);
+    //             this.display_history(civ, civ.selectedIndex);
+    //             try {
+    //                 const response = await fetch('/api/vote', {
+    //                     method: 'POST',
+    //                     headers: { 'content-type': 'application/json' },
+    //                     body: JSON.stringify([civ.options[civ.selectedIndex].text + ' was voted out!'])
+    //                 });
+    //                 const thing = await response.json();
+    //             } catch {
+
+    //             }
+    //             maf.remove(civ.selectedIndex);
+    //             civ.remove(civ.selectedIndex);
+    //             this.day = false;
+    //             await this.take_turn();
+    //         } else {
+    //             this.push_history(maf.selectedIndex);
+    //             this.remember_choices(maf);
+    //             this.display_history(maf, maf.selectedIndex);
+    //             try {
+    //                 const response = await fetch('/api/vote', {
+    //                     method: 'POST',
+    //                     headers: { 'content-type': 'application/json' },
+    //                     body: JSON.stringify([maf.options[maf.selectedIndex].text + ' was killed in the night!'])
+    //                 });
+    //                 const thing = await response.json();
+    //             } catch {
+
+    //             }
+    //             civ.remove(maf.selectedIndex);
+    //             maf.remove(maf.selectedIndex);
+    //             this.day = true;
+    //         }
+    //     } else {
+    //         alert('You have already voted');
+    //     }
+    // }
+
     async take_turn() {
-        const civ = document.getElementById("vote");
-        const maf = document.getElementById("mafia");
         if (this.canVote) {
             this.canVote = false;
-            if (this.day) {
-                this.push_history(civ.selectedIndex);
-                this.remember_choices(civ);
-                this.display_history(civ, civ.selectedIndex);
+            const civ = document.getElementById("vote");
+            const maf = document.getElementById("mafia");
+            if (this.player_role === 'civilian') {
                 try {
                     const response = await fetch('/api/vote', {
                         method: 'POST',
                         headers: { 'content-type': 'application/json' },
-                        body: JSON.stringify([civ.options[civ.selectedIndex].text + ' was voted out!'])
+                        body: JSON.stringify([civ.options[civ.selectedIndex].text])
                     });
                     const thing = await response.json();
+                    if (response.status == 202) {
+                        this.viewResults(thing);
+                    }
                 } catch {
-
+                    alert('there was a problem voting');
                 }
-                maf.remove(civ.selectedIndex);
-                civ.remove(civ.selectedIndex);
-                this.day = false;
-                await this.take_turn();
             } else {
-                this.push_history(maf.selectedIndex);
-                this.remember_choices(maf);
-                this.display_history(maf, maf.selectedIndex);
                 try {
                     const response = await fetch('/api/vote', {
                         method: 'POST',
                         headers: { 'content-type': 'application/json' },
-                        body: JSON.stringify([maf.options[maf.selectedIndex].text + ' was killed in the night!'])
+                        body: JSON.stringify([civ.options[civ.selectedIndex].text])
                     });
                     const thing = await response.json();
                 } catch {
-
+                    alert('there was a problem voting');
                 }
-                civ.remove(maf.selectedIndex);
-                maf.remove(maf.selectedIndex);
-                this.day = true;
+                try {
+                    const response = await fetch('/api/mafVote', {
+                        method: 'POST',
+                        headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify([maf.options[maf.selectedIndex].text])
+                    });
+                    const thing = await response.json();
+                    if (response.status == 202) {
+                        this.viewResults(JSON.parse(thing));
+                    }
+                } catch {
+                    alert('there was a problem voting');
+                }
             }
         } else {
             alert('You have already voted');
@@ -144,9 +236,9 @@ class Player {
 
         const new_data = document.createElement("li");
         if (k % 2 == 0) {
-        new_data.textContent = selection.options[i].value + ' was found dead!';
+            new_data.textContent = selection.options[i].value + ' was found dead!';
         } else {
-            new_data.textContent = selection.options[i].value + ' was publicly executed!'; 
+            new_data.textContent = selection.options[i].value + ' was publicly executed!';
         }
         new_data.setAttribute("class", "history-entry")
 
@@ -172,6 +264,7 @@ class Player {
         }
         if (players) {
             const table_header = document.getElementById('player-table-th');
+            table_header.innerHTML = '';
             let j = 1;
             for (const [i, player] of players.entries()) {
                 let obj_td = document.createElement('td');
@@ -279,8 +372,10 @@ class Player {
     // this funciton "resets" the game.
     async reset() {
         const temp = localStorage.getItem('user_login');
+        const temp2 = localStorage.getItem('role');
         localStorage.clear();
         localStorage.setItem('user_login', temp);
+        localStorage.setItem('role', temp2); 
         let result;
         try {
             let response = await fetch('/api/reset');
@@ -319,6 +414,7 @@ class Player {
         fetch('/api/logout', {
             method: 'delete',
         }).then(() => (window.location.href = '/'));
+        socket.send(JSON.stringify(removePlayerEvent));
     }
 }
 
@@ -331,49 +427,46 @@ async function authorized() {
     }
 }
 
-const the_player = new Player();
+const the_player = new Player(localStorage.getItem('role'));
+
+function configureWS() {
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    socket.onopen = (event) => {
+    };
+    socket.onclose = (event) => {
+    };
+    socket.onmessage = async (event) => {
+        const msg = JSON.parse(await event.data.text());
+        if (msg === civResult) {
+            the_player.get_history();
+        } else if (msg === mafResult) {
+            the_player.get_history();
+        } else if (msg === newPlayerEvent) {
+            the_player.get_history();
+        } else if (msg === removePlayerEvent) {
+            the_player.get_history();
+        }
+    };
+}
+
+configureWS();
 
 if (authorized()) {
     the_player.update_info();
     the_player.get_players();
     the_player.get_history();
     the_player.random_quote();
+    setTimeout(() => { socket.send(JSON.stringify(newPlayerEvent)) }, 2000);
 } else {
     window.location.href = '/';
 }
 
-let socket;
-const receivedVote = 'results';
-const sendVote = 'vote';
-const newPlayerEvent = 'newPlayer';
-const removePlayerEvent = 'removePlayer';
-
-function displayMsg(cls, from, msg) {
+function civTurn(index) {
+    const civ = document.getElementById("vote");
 
 }
 
-function broadcastEvent(from, type, value) {
-    const event = {
-
-    };
-    this.socket.send(JSON.stringify(event));
-}
-
-function configureWS() {
-    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-    socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
-    socket.onopen = (event) => {
-        displayMsg();
-    };
-    socket.onclose = (event) => {
-        displayMsg();
-    };
-    socket.onmessage = async (event) => {
-        const msg = JSON.parse(await event.data.text());
-        if (msg.type === newPlayerEvent) {
-            displayMsg();
-        } else if (msg.type === removePlayerEvent) {
-            displayMsg();
-        }
-    };
+function mafTurn(index) {
+    const maf = document.getElementById("mafia");
 }

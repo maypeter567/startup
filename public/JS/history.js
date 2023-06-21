@@ -40,10 +40,11 @@ async function authorized() {
     }
 }
 
+let role_revealed = false;
+let player_role = localStorage.getItem('role');
+let hider = 'Click to reveal your role'
+
 if (authorized()) {
-    let role_revealed = false;
-    let player_role = localStorage.getItem('role');
-    let hider = 'Click to reveal your role'
     const first = document.querySelector("#player_email");
     first.textContent = localStorage.getItem('user_login');
     show_history();

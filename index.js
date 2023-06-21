@@ -52,7 +52,8 @@ apiRouter.post('/add_player', async (req, res) => {
       createCookie(res, player.token);
     }
     players.push(req.body.email);
-    res.send(players);
+    let role = { role: determineRole(req.body.email) };
+    res.send(role);
   } else {
     res.status(401).send({ msg: 'unauthorized' });
   }
@@ -92,6 +93,28 @@ apiRouter.delete('/logout', async (req, res) => {
   player_profile = await DB.getPlayerByToken(player_token);
   player_name = player_profile.player
   let temp = [];
+  if (mafPlayers.includes(player_name)) {
+    needMaf++;
+    for (let i = 0; i < mafPlayers.length; i++) {
+      if (mafPlayers[i] == player_name) {
+        1 + 1;
+      } else {
+        temp.push(mafPlayers[i]);
+      }
+    }
+    mafPlayers = temp;
+    temp = [];
+  } else {
+    for (let i = 0; i < civPlayers.length; i++) {
+      if (civPlayers[i] == player_name) {
+        1 + 1;
+      } else {
+        temp.push(civPlayers[i]);
+      }
+    }
+    civPlayers = temp;
+    temp = [];
+  }
   for (let i = 0; i < players.length; i++) {
     if (players[i] == player_name) {
       1 + 1;
@@ -126,10 +149,30 @@ secureApiRouter.get('/auth_check', (_req, res) => {
   res.status(200).send(true);
 })
 
-// vote
+// vote for single player testing
+// secureApiRouter.post('/vote', (req, res) => {
+//   DB.vote(req.body);
+//   res.send(true);
+// })
+
+//civ votes
 secureApiRouter.post('/vote', (req, res) => {
-  DB.vote(req.body);
-  res.send(true);
+  votes.push(req.body[0]);
+  if (canVote()) {
+    res.status(202).send(processVotes());
+  } else {
+    res.status(200).send(true);
+  }
+})
+
+//mafia votes
+secureApiRouter.post('/mafVote', (req, res) => {
+  mafVotes.push(req.body[0]);
+  if (canVote()) {
+    res.status(202).send(processVotes());
+  } else {
+    res.status(200).send(true);
+  }
 })
 
 // return vote history
@@ -171,10 +214,12 @@ const httpService = app.listen(port, () => {
 });
 
 
-const debug = true;
+const debug = false;
 let Desktop_history = [];
 // let mongo_history = [];
 let players = [];
+let civPlayers = [];
+let mafPlayers = [];
 
 if (debug) {
   players = ['player1', 'player2', 'player3', 'player4', 'player5', 'player6', 'player7', 'player8', 'player9', 'player10'];
@@ -209,13 +254,31 @@ function new_player(player_name) {
 // this removes any data saved in the server so that the game does not get stuck.
 function reset() {
   Desktop_history = [];
+  players = [];
 }
 
 
 
 let votes = [];
+let mafVotes = [];
+let needMaf = 0;
 
-function decisionMaker() {
+function determineRole(player) {
+  let role;
+  if (needMaf > 0) {
+    mafPlayers.push(player);
+    role = 'mafia';
+  } else if (players % 4 == 0) {
+    mafPlayers.push(player);
+    role = 'mafia';
+  } else {
+    civPlayers.push(player);
+    role = 'civilian';
+  }
+  return role;
+}
+
+function civDecisionMaker() {
   if (votes.length === players.length) {
     let player;
     let count;
@@ -225,15 +288,74 @@ function decisionMaker() {
           count += 1;
         }
       }
-      if (count > player.length) {
-        voteOut(player);
-        break;
+      if (count > player.length / 2) {
+        return voteOut(player);
+      }
+    }
+    return -1;
+  }
+}
+
+function mafDecisionMaker() {
+  if (mafVotes === mafPlayers.length) {
+    let maf = false;
+    count = 0;
+    for (player in players) {
+      for (let i = 0; i < players.length; i++) {
+        if (mafVotes[i] === player) {
+          count += 1;
+        }
+      }
+      if (count > mafPlayers.length / 2) {
+        return mafOut(player);
+        maf = true;
+      }
+    }
+    count = 0;
+    if (!maf) {
+      for (player in players) {
+        for (let i = 0; i < players.length; i++) {
+          if (mafVotes[i] === player) {
+            count += 1;
+          }
+        }
+        if (count > 0) {
+          return mafOut(player);
+        }
       }
     }
   }
 }
 
+function canVote() {
+  if (votes.length === players.length && mafVotes.length === mafPlayers.length) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
+function processVotes() {
+  return [civDecisionMaker(), mafDecisionMaker()];
+}
+
+function mafOut(player) {
+  for (let i = 0; i < players.length; i++) {
+    if (players[i] === player) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+function voteOut(player) {
+  for (let i = 0; i < players.length; i++) {
+    if (players[i] === player) {
+      return i;
+    }
+  }
+  return -1;
+}
 
 
 socketSetup(httpService);
