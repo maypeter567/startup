@@ -418,3 +418,13 @@ dang these notes get lost in the marathon of this class.
 select a word, then command d.
 or command shift l.
 
+## June 23 final exam notes
+- port 80 is reserved for http
+- http status codes in the 300's are for content redirects or caching.
+- 200 confirmed.
+- 100 initial requests
+- 400 when the user asks for something they are not allowed to, or it is formated incorrectly.
+- 500 server issues.
+
+- language is not a standard http header, but cookie, host and content-type is.
+- 
